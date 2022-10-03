@@ -80,6 +80,14 @@ git checkout 分支名
 git merge 分支B    //目前分支A 合併 分支B (將B的更新 給A)
 ```
 
+若發生 fatal: refusing to merge histories
+
+須強制合併，使用以下命令
+
+```properties
+git merge 分支B --allow-unrelated-histories
+```
+
 __________________________________________________
 ## 【特殊處理】
 
