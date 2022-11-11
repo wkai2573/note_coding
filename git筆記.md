@@ -10,13 +10,13 @@ git init 路徑檔案
 
 ### 暫存變更_add
 ```properties
-git add .         //暫存全部
+git add .         # 暫存全部
 git add 路徑檔案
 ```
 
 ### 取消暫存變更_reset
 ```properties
-git reset .       //取消暫存全部
+git reset .       # 取消暫存全部
 git reset 路徑檔案
 ```
 
@@ -62,8 +62,8 @@ __________________________________________________
 
 ### 建立分支_branch
 ```properties
-git branch 分支名     //建立分支
-git branch -d 分支名  //刪除分支
+git branch 分支名     # 建立分支
+git branch -d 分支名  # 刪除分支
 ```
 
 ### 切換分支_checkout
@@ -77,7 +77,9 @@ git checkout 分支名
 ![vscode_合併分支](img/vscode_merge.jpg "vscode_合併分支")
 
 ```properties
-git merge 分支B    //目前分支A 合併 分支B (將B的更新 給A)
+# 目前分支A 合併 分支B (將B的更新 給A)
+git checkout 分支A
+git merge 分支B
 ```
 
 若發生 fatal: refusing to merge histories
@@ -101,9 +103,9 @@ __________________________________________________
 ### 回復版本
 ![vscode_回復版本](img/vscode_reset_head.jpg "vscode_回復版本")
 ```properties
-git reset --hard HEAD    //回復到最新提交版本
-git reset --hard HEAD~   //等於 ~1 回復到上一個提交版本
-git reset --hard HEAD~n  //n 等於往上第幾個提交版本 回復之前指定的提交版本
+git reset --hard HEAD    # 回復到最新提交版本
+git reset --hard HEAD~   # 等於 ~1 回復到上一個提交版本
+git reset --hard HEAD~n  # n 等於往上第幾個提交版本 回復之前指定的提交版本
 ```
 
 ### 合併(merge)時忽略指定檔案
