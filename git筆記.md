@@ -47,6 +47,7 @@ __________________________________________________
 ```properties
 git push 遠端主機名 本地分支名:遠端分支名
 git push origin master
+git push origin master:main  #如果分支名不一樣
 ```
 
 ### 拉_pull
@@ -80,6 +81,9 @@ git checkout 分支名
 # 目前分支A 合併 分支B (將B的更新 給A)
 git checkout 分支A
 git merge 分支B
+# or
+git checkout master
+git merge dev
 ```
 
 若發生 fatal: refusing to merge histories
@@ -88,6 +92,8 @@ git merge 分支B
 
 ```properties
 git merge 分支B --allow-unrelated-histories
+# or
+git merge dev --allow-unrelated-histories
 ```
 
 合併後，若有衝突，需手動處理，
