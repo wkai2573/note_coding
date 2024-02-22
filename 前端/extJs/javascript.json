@@ -1,0 +1,2007 @@
+{
+	/*
+		// Place your snippets for JavaScript here. Each snippet is defined under a snippet name and has a prefix, body and 
+		// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+		// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+		// same ids are connected.
+		// Example:
+		"Print to console": {
+			"prefix": "log",
+			"body": [
+				"console.log('$1');",
+				"$2"
+			],
+			"description": "Log output to console"
+		}
+	*/
+	
+	//ExtJs 3.4 snippets by.若綠20190708________________________________________________________________________________
+	//xtype 元件類________________________________________________________________________________
+    "xtype:label:標籤": {
+		"prefix": "xtype:label:標籤",
+		"body": "{xtype:'label', text:'文字', style:'color:blue;font-size:12px;padding:5px 3px;'},$0",
+		"description": "xtype:label:標籤"
+	},
+	"xtype:tbtext(label):工具列文字": {
+		"prefix": "xtype:tbtext(label):工具列文字",
+		"body": "{xtype:'tbtext', text:'文字', style:'color:blue;padding:4px 3px;'},$0",
+		"description": "xtype:tbtext(label):工具列文字"
+    },
+	"xtype:button:按鈕": {
+		"prefix": "xtype:button:按鈕",
+		"body": "{xtype:'button', text:'text', tooltip:'提示', iconCls:'ok', handler(btn){/*...*/}},$0",
+		"description": "xtype:button:按鈕"
+	},
+	"xtype:button:可按住按鈕(toggle)": {
+		"prefix": "xtype:button:可按住按鈕(toggle)",
+		"body": "{xtype:'button', text:'text', tooltip:'提示', iconCls:'ok', enableToggle:true, toggleHandler(btn, pressed){/*...*/}},$0",
+		"description": "xtype:button:可按住按鈕(toggle)"
+	},
+	"xtype:button:按鈕(詳細)": {
+		"prefix": "xtype:button:按鈕(詳細)",
+		"body": [
+			"{xtype:'button', text:'text', tooltip:'提示', iconCls:'ok', handler(btn){/*...*/}},$0",
+			"//http://retek-06/ext/docs/#!/api/Ext.Button",
+			"//設置: icon:subHandler.subFolder+'image/檔名.png',",
+			"//\tstyle:'border:none;margin-right:3;', margins:'10 10 10 10',",
+			"//\tenableToggle:true, disabled:true, menu:[]",
+			"//屬性: pressed",
+			"//方法: setDisabled(bool), fireEvent(eventName,args)",
+		],
+		"description": "xtype:button:按鈕(詳細)"
+	},
+	"xtype:button:下拉式按鈕(menu)": {
+		"prefix": "xtype:button:下拉式按鈕(menu)",
+		"body": [
+			"{xtype:'button', text:'進階', tooltip:'進階功能項', iconCls:'setup', menu:[",
+			"\t{xtype:'menuitem', text:'text', iconCls:'ok', handler(btn){/*...*/}},",
+			"]},$0",
+			"//http://retek-06/ext/docs/#!/api/Ext.menu.Menu",
+		],
+		"description": "xtype:button:下拉式按鈕(menu)"
+	},
+	"xtype:button:新增列按鈕": {
+		"prefix": "xtype:button:新增列按鈕",
+		"body": [
+			"{xtype:'button', text:'新增', tooltip:'新增', iconCls:'add', handler(btn){",
+			"\t${1:名稱}Store.recordBuilder = ${1:名稱}Store.recordBuilder || new Ext.data.Record.create(${1:名稱}Store.reader.meta.fields);",
+			"\tvar newRecord = new ${1:名稱}Store.recordBuilder({",
+			"\t\tsn:0, 其他欄位...,",
+			"\t\tuSn:initParams.uSn, uName:initParams.uName, setDate:new Date(),",
+			"\t});",
+			"\t${1:名稱}Grid.stopEditing();",
+			"\t${1:名稱}Store.insert(0, newRecord);",
+			"\t${1:名稱}Grid.startEditing(0, ${1:名稱}Grid.getColumnModel().findColumnIndex('欄位名'));",
+			"}},$0",
+		],
+		"description": "xtype:button:新增列按鈕"
+	},
+	"xtype:button:排序按鈕": {
+		"prefix": "xtype:button:排序按鈕",
+		"body": [
+			"{xtype:'button', text:'排序', tooltip:'排序', iconCls:'exchange', enableToggle:true, toggleHandler(btn, pressed){",
+			"\tvar isSortMode = ${1:名稱}Grid.isSortMode = pressed;",
+			"\tif (isSortMode) { //排序",
+			"\t\t//${1:名稱}Grid.view.dragZone.unlock();",
+			"\t\tbtn.setText('完成排序'); //元件調整",
+			"\t\t//btn.ownerCt.items.items.forEach(t=>{ if(t!==btn) t.hide(); });",
+			"\t\t//其他面板.el.mask('完成排序後啟用'); //遮罩",
+			"\t} else { //完成排序",
+			"\t\tajaxSort();",
+			"\t\t//${1:名稱}Grid.view.dragZone.lock();",
+			"\t\tbtn.setText('排序');",
+			"\t\t//btn.ownerCt.items.items.forEach(t=>{ if(t!==btn) t.show(); });",
+			"\t\t//其他面板.el.unmask();",
+			"\t}",
+			"}},$0"
+		],
+		"description": "xtype:button:排序按鈕"
+	},
+    "xtype:combo:下拉選單":{
+		"prefix": "xtype:combo:下拉選單",
+		"body": [
+			"//new Ext.form.ComboBox({});$0",
+			"{xtype:'combo', itemId:'', width:80,",
+			"\ttriggerAction:'all', mode:'local', editable:false, //typeAhead:true, //禁止編輯, 自動輸入後方候選字",
+			"\t//'all':必須,否則顯示不出其他筆資料; mode:'local'是已經load好或已經打好的資料,'remote'為點擊後才執行store.load()",
+			"\ttpl:'<tpl for=\".\"><div class=\"x-combo-list-item\" ext:qwidth=\"auto\" ext:qtip=\"{title}({sn})\">{title}&nbsp;</div></tpl>', //combo項目的顯示html",
+			"\t//emptyText:'請選擇[項目]...', validator:v=>!v? '請選擇[項目]' : true,",
+			"\t//getListParent() {return this.el.up('.x-menu');}, //讓menu裡的combo在選擇時不會關menu",
+			"\tstore:new Ext.data.ArrayStore({}),",
+			"\tvalueField:'sn', displayField:'title', //value:0, //值欄位, 顯示欄位",
+			"\t//listeners:{",
+			"\t//\tselect(_this, record, index) { //選擇後",
+			"\t//\t}",
+			"\t//\tchange(_this, newValue, oldValue) { //選擇後並點離開",
+			"\t//\t},",
+			"\t//},",
+			"\t//listeners:{ //強制設定combo寬度",
+			"\t//\tshow(_this) { _this.setWidth(150); },",
+			"\t//\texpand(_this) {",
+			"\t//\t\tvar listDom = _this.list.dom;",
+			"\t//\t\tlistDom.style.width = '150px';",
+			"\t//\t\tlistDom.firstChild.style.width = '150px';",
+			"\t//\t}",
+			"\t//}",
+			"},",
+			"//http://retek-06/ext/docs/#!/api/Ext.form.ComboBox"
+		],
+		"description": "xtype:combo:下拉選單"
+    },
+    "xtype:textfield:文字輸入框": {
+		"prefix": "xtype:textfield:文字輸入框",
+		"body": [
+			"{xtype:'textfield', itemId:'', emptyText:'未輸入時顯示文字', value:'預設值',",
+			"\tselectOnFocus:true, //focus時全選",
+			"\t//fieldLabel:'標籤', //form參數",
+			"\tmaskRe:/[\\.\\d]/, //限制輸入",
+			"\tvalidator:v=> (/^\\d*$/.test(v))? true : '僅能輸入 <span style=\"color:red;\">數字</span>', //驗證器",
+			"\tenableKeyEvents:true, //啟動鍵盤事件",
+			"\tlisteners:{",
+			"\t\trender(_this) { _this.el.set({spellcheck:false}); }, //初始化, 關閉拼字檢查",
+			"\t\tspecialkey(_this,e) { if (e.getKey()===e.ENTER) { //導航鍵, arrows, tab, enter, esc, etc.",
+			"\t\t\t",
+			"\t\t}}",
+			"\t}",
+			"},$0",
+			"//http://retek-06/ext/docs/#!/api/Ext.form.TextField",
+			"//keyinGrid.activeEditor.field.el.dom.value = 'string'; //跳過驗證的強制輸入"
+		],
+		"description": "xtype:textfield:文字輸入框"
+	},
+    "xtype:textfield:search搜尋框": {
+		"prefix": "xtype:textfield:search搜尋框",
+		"body": [
+			"'<img src=\"/images/comm/base/search.gif\"></img>','-',",
+			"{xtype:'textfield', emptyText:'按下Enter篩選/搜尋', width:150, enableKeyEvents:true, listeners:{ specialkey(_this,e) { //導航鍵",
+			"\tif (e.getKey()===e.ENTER) {",
+			"\t\t//Store篩選",
+			"\t\t名稱Store.filterBy(r=>r.get('要找的欄位名稱').indexOf(_this.getValue())>=0);",
+			"\t\t//Store搜尋",
+			"\t\t名稱Store.baseParams = {keyWord:_this.getValue()};",
+			"\t\t名稱Store.load();",
+			"\t\t//Tree",
+			"\t\t名稱Tree.loader.baseParams = {keyWord:_this.getValue()};",
+			"\t\t名稱Tree.root.reload();",
+			"\t}",
+			"}}},$0",
+		],
+		"description": "xtype:textfield:search搜尋框"
+	},
+	"xtype:datefield:日期輸入框": {
+		"prefix": "xtype:datefield:日期輸入框",
+		"body": [
+			"{xtype:'datefield', itemId:'', width:90, emptyText:'請選擇日期', editable:false, value:new Date()},$0",
+			"//http://retek-06/ext/docs/#!/api/Ext.form.DateField"
+		],
+		"description": "xtype:datefield:日期輸入框"
+	},
+	"xtype:datefield:日期輸入框inMenu": {
+		"prefix": "xtype:datefield:日期輸入框inMenu",
+		"body": [
+			"{xtype:'datefield', itemId:'', width:90, emptyText:'請選擇日期', editable:false, value:new Date(),",
+			"\tmenu:new Ext.menu.DateMenu({hideOnClick:false, allowOtherMenus:true, listeners:{ //讓parentMenu不會被自動關閉",
+			"\t\trender(m) {",
+			"\t\t\tm.mon(Ext.getDoc(), 'mousedown', function(e) {",
+			"\t\t\t\tif (!m.el.contains(e.getTarget())) {",
+			"\t\t\t\t\tm.hide();",
+			"\t\t\t\t}",
+			"\t\t\t});",
+			"\t\t}",
+			"\t}});",
+			"},",
+			"//http://retek-06/ext/docs/#!/api/Ext.form.DateField"
+		],
+		"description": "xtype:datefield:日期輸入框inMenu"
+	},
+	"xtype:numberfield:數字輸入框": {
+		"prefix": "xtype:numberfield:數字輸入框",
+		"body": [
+			"{xtype:'numberfield', itemId:'', minValue:0, maxValue:30, value:預設值},$0",
+			"//http://retek-06/ext/docs/#!/api/Ext.form.NumberField"
+		],
+		"description": "xtype:numberfield:數字輸入框"
+	},
+	"xtype:spinnerfield(number):數字調整框": {
+		"prefix": "xtype:spinnerfield(number):數字調整框",
+		"body": [
+			"{xtype:'spinnerfield', itemId:'', minValue:1, maxValue:30, value:預設值},$0",
+			"//fieldLabel:'標籤', //form參數",
+			"//http://trac.geoext.org/browser/ext/3.4.0/examples/ux/SpinnerField.js?rev=2740"
+		],
+		"description": "xtype:spinnerfield(number):數字調整框"
+	},
+	"xtype:radiogroup:單選按鈕群組": {
+		"prefix": "xtype:radiogroup:單選按鈕群組",
+		"body": [
+			"{xtype:'radiogroup',",
+			"\tfieldLabel:'標題', columns:3/*[100, 200]*/, //表格分佈欄位數或寬度",
+			"\t//vertical:true, //垂直分佈",
+			"\titems:[",
+			"\t\t{boxLabel:'Item 1', name:'群組名', inputValue:1},",
+			"\t\t{boxLabel:'Item 2', name:'群組名', inputValue:2, checked:true},",
+			"\t\t{boxLabel:'Item 3', name:'群組名', inputValue:3},",
+			"\t\t{boxLabel:'Item 4', name:'群組名', inputValue:4},",
+			"\t]",
+			"},$0"
+		],
+		"description": "xtype:radiogroup:單選按鈕群組"
+	},
+	"xtype:radio:單選按鈕": {
+		"prefix": "xtype:radio:單選按鈕",
+		"body": [
+			"{xtype:'radio', name:'群組名', boxLabel:'文字', checked:true, handler(btn){/*...*/}},$0",
+			"//http://retek-06/ext/docs/#!/api/Ext.form.Radio"
+		],
+		"description": "xtype:radio:單選按鈕"
+	},
+	"xtype:checkbox:核取方塊(複選框)": {
+		"prefix": "xtype:checkbox:核取方塊(複選框)",
+		"body": [
+			"{xtype:'checkbox', boxLabel:'文字', checked:true, handler(btn, checked){/*...*/}},$0",
+			"//http://retek-06/ext/docs/#!/api/Ext.form.Checkbox"
+		],
+		"description": "xtype:checkbox:核取方塊(複選框)"
+	},
+    "xtype:box:<hr>水平線": {
+		"prefix": "xtype:box:<hr>水平線",
+		"body": "{xtype:'box', autoEl:{tag:'hr'}},$0 //水平線",
+		"description": "xtype:box:<hr>水平線"
+	},
+	"xtype:box:Ext工具小按鈕(說明)": {
+		"prefix": "xtype:box:Ext工具小按鈕(說明)",
+		"body": [
+			"{xtype:'box', autoEl:{cls:'x-tool x-tool-help','ext:qtip':'說明提示'},",
+			"\tlisteners:{ afterrender(_this) {",
+			"\t\tvar el = _this.getEl();",
+			"\t\tel.addClassOnOver('x-tool-help-over');",
+			"\t\tel.on('click', (e,t,o)=>{",
+			"\t\t\t",
+			"\t\t});",
+			"\t}}",
+			"},$0",
+		],
+		"description": "xtype:box:Ext工具小按鈕(說明)"
+	},
+	"xtype:box:Ext工具小按鈕(收合面板)": {
+		"prefix": "xtype:box:Ext工具小按鈕(收合面板)",
+		"body": [
+			"{xtype:'box', autoEl:{cls:'x-tool x-tool-collapse-west','ext:qtip':'收合面板'},",
+			"\tlisteners:{ afterrender(_this) {",
+			"\t\tvar el = _this.getEl();",
+			"\t\tel.addClassOnOver('x-tool-collapse-west-over');",
+			"\t\tel.on('click', (e,t,o)=>名稱Panel.collapsed? 名稱Panel.expand() : 名稱Panel.collapse());",
+			"\t}}",
+			"},$0",
+		],
+		"description": "xtype:box:Ext工具小按鈕(收合面板)"
+	},
+	"xtype:tbseparator:分隔線": {
+		"prefix": "xtype:tbseparator:分隔線",
+		"body": "{xtype:'tbseparator', itemId:'hr', width:3},$0",
+		"description": "xtype:tbseparator:分隔線"
+	},
+	"xtype:tbspacer:分隔空白": {
+		"prefix": "xtype:tbspacer:分隔空白",
+		"body": "{xtype:'tbspacer', width:3},$0",
+		"description": "xtype:tbspacer:分隔空白"
+	},
+	"xtype:tooltip:提示(條件顯示,滑鼠移過不顯示)": {
+		"prefix": "xtype:tooltip:提示(條件顯示,滑鼠移過不顯示)",
+		"body": [
+			"//要在外面宣告 ${1:名稱}Tip = null;",
+			"${1:名稱}Tip = ${1:名稱}Tip || new Ext.ToolTip({",
+			"\ttitle:'說明', html:'副說明',",
+			"\ttarget:對象元件.id, anchor:'bottom', width:200, autoHide:false, closable:true,",
+			"\trunShow(){ //自訂, 為了讓滑鼠移過不要顯示提示, 要用執行的才能顯示",
+			"\t\tthis.canShow = true;",
+			"\t\tthis.show();",
+			"\t},",
+			"\tlisteners:{",
+			"\t\tafterrender(_this) { //渲染後, 隱藏tip裡又上角的[x]",
+			"\t\t\t_this.el.dom.children[0].children[0].children[0].children[0].children[0].style.display = 'none';",
+			"\t\t},",
+			"\t\tbeforeshow(_this) {",
+			"\t\t\tif (!_this.rendered) return true;",
+			"\t\t\tif (_this.canShow) {_this.canShow=false; return true;}",
+			"\t\t\treturn false;",
+			"\t\t},",
+			"\t}",
+			"});",
+			"${1:名稱}Tip.runShow();",
+		],
+		"description": "xtype:tooltip:提示(條件顯示,滑鼠移過不顯示)"
+	},
+	//xtype 面板類________________________________________________________________________________
+	"xtype:container:容器": {
+		"prefix": "xtype:container:容器",
+		"body": [
+			"//new Ext.Container({});$0",
+			"{xtype:'container', layout:'hbox', //hbox水平 vbox垂直",
+			"\titems:[]",
+			"},",
+			"//{xtype:'spacer', flex:1}, //可用此調整寬高比例"
+		],
+		"description": "xtype:container:容器"
+	},
+	"xtype:panel:面板": {
+		"prefix": "xtype:panel:面板",
+		"body": [
+			"var ${1:名稱}Panel = new Ext.Panel({$0",
+			"\t//title:'標題', //height:300, width:300, autoScroll:true,",
+			"\tborder:false, //or bodyStyle:'border-top-style:none;border-bottom-style:none;border-left-style:none;border-right-style:none;', //框線",
+			"\t//baseCls:'x-plain', bodyStyle:'padding:10px', frame:true, //粗原角邊框",
+			"\t//bufferResize:0, //resize延遲",
+			"\ttbar:[],",
+			"\tlayout:{type:'vbox', align:'stretch', padding:5},",
+			"\tdefaults:{margins:'0 0 5 0', width:250},",
+			"\titems:[],",
+			"});"
+		],
+		"description": "xtype:panel:面板"
+	},
+	"xtype:tabpanel:分頁面板": {
+		"prefix": "xtype:tabpanel:分頁面板",
+		"body": [
+			"var tabPanel = new Ext.TabPanel({$0",
+			"\tactiveTab:0,",
+			"\titems:[",
+			"\t\t{xtype:'panel', title:'Tab 1', iconCls:'setup', closable:true, html:'內容'},",
+			"\t],",
+			"});"
+		],
+		"description": "xtype:tabpanel:分頁面板"
+	},
+	"xtype:grid:表格": {
+		"prefix": "xtype:grid:表格",
+		"body": [
+			"var ${1:名稱}Grid = new Ext.grid.GridPanel({$0",
+			"\t//hideHeaders:true, //標頭隱藏",
+			"\tloadMask:true, stripeRows:true, columnLines:true, enableColumnMove:false, //讀取遮罩, 條紋列, 分隔線, 禁止拖曳",
+			"\tautoExpandColumn:0, //自動擴大欄位",
+			"\tviewConfig:{deferEmptyText:false, emptyText:'無資料', markDirty:false}, //無資料時文字, 不顯示編輯痕跡",
+			"\t\t//viewConfig其他參數: forceFit:true, //所有欄位自動調整欄寬",
+			"\tselModel:new Ext.grid.RowSelectionModel({singleSelect:true}), //列單選",
+			"\tstore:${1:名稱}Store,",
+			"\tcolumns:[], // or cm:new Ext.grid.ColumnModel({...}),",
+			"});"
+		],
+		"description": "xtype:grid:表格"
+	},
+	"xtype:editorgrid:可編輯表格": {
+		"prefix": "xtype:editorgrid:可編輯表格",
+		"body": [
+			"var ${1:名稱}Grid = new Ext.grid.EditorGridPanel({$0",
+			"\t//hideHeaders:true, //標頭隱藏",
+			"\tloadMask:true, stripeRows:true, columnLines:true, trackMouseOver:true, enableColumnMove:false, //讀取遮罩, 條紋列, 分隔線, 移過強調, 禁止拖曳",
+			"\tautoExpandColumn:0, clicksToEdit:2, //自動擴大欄位, 編輯需點擊次數",
+			"\tviewConfig:{deferEmptyText:false, emptyText:'無資料', markDirty:false}, //無資料時文字, 不顯示編輯痕跡",
+			"\t\t//viewConfig其他參數: forceFit:true, //所有欄位自動調整欄寬",
+			"\tselModel:new Ext.grid.RowSelectionModel({singleSelect:true}), //列單選",
+			"\tstore:${1:名稱}Store,",
+			"\tcolumns:[], // or cm:new Ext.grid.ColumnModel({...}),",
+			"\tlisteners:{",
+			"\t\tafteredit(e) { //編輯後",
+			"\t\t\t// e.grid  e.record  e.field  e.value  e.originalValue  e.row  e.column",
+			"\t\t},",
+			"\t}",
+			"});",
+			"//其他:",
+			"//grid.activeEditor 可取得現在編輯中的編輯器",
+			"//editor.gridEditor.record 可取得現在編輯中表的record等資料"
+		],
+		"description": "xtype:editorgrid:可編輯表格"
+	},
+	"xtype:menu:選單": {
+		"prefix": "xtype:menu:選單",
+		"body": [
+			"new Ext.menu.Menu({$0",
+			"\t... //自訂",
+			"\t//plain:true, allowOtherMenus:true, //移除分隔線, 允許其他選單顯示",
+			"\t//defaults:{hideOnClick:false}, //點擊不關閉",
+			"\titems:[",
+			"\t\t{xtype:'menuitem', text:'text', iconCls:'ok', handler(btn){/*...*/}},",
+			"\t\t//http://retek-06/ext/docs/#!/api/Ext.menu.Item",
+			"\t\t//menuitem 常用屬性:",
+			"\t\t//\t設置: hideOnClick:false, icon:subHandler.subFolder+'image/檔名.png', menu:[],",
+			"\t\t//\t屬性: parentMenu",
+			"\t\t//\t方法: expandMenu(), setDisabled(bool)",
+			"\t],",
+			"\tlisteners:{",
+			"\t\tbeforeshow(_this) { //顯示前(禁用|啟用)按鈕",
+			"\t\t\t//...",
+			"\t\t},",
+			"\t}",
+			"});",
+			"//http://retek-06/ext/docs/#!/api/Ext.menu.Menu",
+			"//menu 常用屬性:",
+			"//\t方法: showAt(e.getXY()), hide()"
+		],
+		"description": "xtype:menu:選單"
+	},
+	"xtype:menu:取得選單": {
+		"prefix": "xtype:menu:取得選單",
+		"body": [
+			"var ${1:名稱}Menu = null;$0",
+			"function get${1:名稱}Menu() {",
+			"\t${1:名稱}Menu = ${1:名稱}Menu || new Ext.menu.Menu({",
+			"\t\t... //自訂",
+			"\t\t//plain:true, allowOtherMenus:true, //移除分隔線, 允許其他選單顯示",
+			"\t\t//defaults:{hideOnClick:false}, //點擊不關閉",
+			"\t\titems:[",
+			"\t\t\t{xtype:'menuitem', text:'text', iconCls:'ok', handler(btn){/*...*/}},",
+			"\t\t\t//http://retek-06/ext/docs/#!/api/Ext.menu.Item",
+			"\t\t\t//menuitem 常用屬性:",
+			"\t\t\t//\t設置: hideOnClick:false, icon:subHandler.subFolder+'image/檔名.png', menu:[],",
+			"\t\t\t//\t屬性: parentMenu",
+			"\t\t\t//\t方法: expandMenu(), setDisabled(bool)",
+			"\t\t],",
+			"\t\tlisteners:{",
+			"\t\t\tbeforeshow(_this) { //顯示前(禁用|啟用)按鈕",
+			"\t\t\t\t//...",
+			"\t\t\t},",
+			"\t\t}",
+			"\t});",
+			"\treturn ${1:名稱}Menu;",
+			"}",
+		],
+		"description": "xtype:menu:取得選單"
+	},
+	"xtype:menuitem:選單項目": {
+		"prefix": "xtype:menuitem:選單項目",
+		"body": [
+			"{xtype:'menuitem', text:'text', iconCls:'ok', handler(btn){/*...*/}/*, menu:[]*/},$0",
+			"//http://retek-06/ext/docs/#!/api/Ext.menu.Item",
+			"//menuitem 常用屬性:",
+			"//\t設置: hideOnClick:false, icon:subHandler.subFolder+'image/檔名.png', menu:[],",
+			"//\t屬性: parentMenu",
+			"//\t方法: expandMenu(), setDisabled(bool)",
+		],
+		"description": "xtype:menuitem:選單項目"
+	},
+	"xtype:menuseparator:選單分隔線": {
+		"prefix": "xtype:menuseparator:選單分隔線",
+		"body": "{xtype:'menuseparator', itemId:'hr'},$0",
+		"description": "xtype:menuseparator:選單分隔線"
+	},
+	"xtype:window:視窗": {
+		"prefix": "xtype:window:視窗",
+		"body": [
+			"new Ext.Window({ //xtype:'window'$0",
+			"\t... //自訂",
+			"\t//title:'<img style=\"margin-bottom:-3px;\" src=\"\\${subHandler.subFolder}image/圖片.png\">含圖標題',",
+			"\ticonCls:'list', title:'標題', height:500, width:800, border:false, //autoScroll:true,",
+			"\t//tbar:[],",
+			"\t//視窗不超出範圍, 後方遮罩, 關閉按鈕, 收合按鈕, 收合動畫, 可調視窗, 大小按鈕",
+			"\tconstrain:true, constrainHeader:true, modal:false, closable:true, closeAction:'hide', //collapsible:true, animCollapse:false, resizable:false, maximizable:true, minimizable:true,",
+			"\t//tools:[{id:'help', qtip:'操作手冊', handler:PP.showHelpWin}],",
+			"\tlayout:'fit',",
+			"\titems:[],",
+			"\tlisteners:{",
+			"\t\t//render(_this) { //載入",
+			"\t\t//\tExt.ux.Loader.load([`\\${subHandler.subFolder}JS名.js?mainId=\\${mainId}&parentId=\\${_this.id}&參數名=\\${參數值}&dummy=\\${new Date().getTime()}`]);",
+			"\t\t//},",
+			"\t}",
+			"});"
+		],
+		"description": "xtype:window:視窗"
+	},
+	"xtype:window:取得視窗": {
+		"prefix": "xtype:window:取得視窗",
+		"body": [
+			"var ${1:名稱}Win = null;",
+			"function get${1:名稱}Win() {",
+			"\t${1:名稱}Win = ${1:名稱}Win || new Ext.Window({",
+			"\t\t... //自訂",
+			"\t\t//title:`<img style=\"margin-bottom:-3px;\" src=\"\\${subHandler.subFolder}image/圖片.png\">含圖標題`,",
+			"\t\ticonCls:'list', title:'標題', height:500, width:800, border:false, //autoScroll:true,",
+			"\t\t//tbar:[],",
+			"\t\t//視窗不超出範圍, 後方遮罩, 關閉按鈕, 收合按鈕, 收合動畫, 可調視窗, 大小按鈕",
+			"\t\tconstrain:true, constrainHeader:true, modal:false, closable:true, closeAction:'hide', //collapsible:true, animCollapse:false, resizable:false, maximizable:true, minimizable:true,",
+			"\t\t//tools:[{id:'help', qtip:'操作手冊', handler:PP.showHelpWin}],",
+			"\t\tlayout:'fit',",
+			"\t\titems:[],",
+			"\t\tlisteners:{",
+			"\t\t\t//render(_this) { //載入",
+			"\t\t\t//\tExt.ux.Loader.load([`\\${subHandler.subFolder}JS名.js?mainId=\\${mainId}&parentId=\\${_this.id}&參數名=\\${參數值}&dummy=\\${new Date().getTime()}`]);",
+			"\t\t\t//},",
+			"\t\t}",
+			"\t});",
+			"\treturn ${1:名稱}Win;",
+			"}$0"
+		],
+		"description": "xtype:window:取得視窗"
+	},
+	"xtype:window:設定用小視窗": {
+		"prefix": "xtype:window:設定用小視窗",
+		"body": [
+			"${1:名稱}Win = ${1:名稱}Win || new Ext.Window({$0",
+			"\tconstrain:true, constrainHeader:true, modal:true, resizable:false, closable:true, closeAction:'hide', buttonAlign:'center',",
+			"\ttitle:'標題', height:113, width:180, border:false, bodyStyle:'background-color:#CDD9E8;',",
+			"\tfbar:[",
+			"\t\t{xtype:'button', text:'確認', iconCls:'ok', handler(btn){/*...*/}},",
+			"\t\t{xtype:'button', text:'取消', iconCls:'cancel', handler(btn){${1:名稱}Win.hide();}},",
+			"\t],",
+			"\tlayout:'form', labelAlign:'right', labelWidth:90,",
+			"\titems:[",
+			"\t\t{xtype:'spinnerfield', itemId:'元件1', fieldLabel:'標籤1', width:60, minValue:1, maxValue:5, value:1},",
+			"\t\t{xtype:'numberfield', itemId:'元件2', fieldLabel:'標籤2', width:60, minValue:0, value:0},",
+			"\t],",
+			"});",
+			"${1:名稱}Win.get('元件1').setValue(1);",
+			"${1:名稱}Win.get('元件2').setValue(0);",
+			"${1:名稱}Win.show();"
+		],
+		"description": "xtype:window:設定用小視窗"
+	},
+	"xtype:form:表單面板": {
+		"prefix": "xtype:form:表單面板",
+		"body": [
+			"//var panel = new Ext.form.FormPanel({});$0",
+			"{xtype:'form',",
+			"\ttitle:'標題', height:300, width:300, padding:5,",
+			"\tlabelAlign:'right', labelWidth:80, //form參數",
+			"\t//hideLabel:true,",
+			"\t//labelSeparator:':',",
+			"\t//labelPad:5,",
+			"\titems:[",
+			"\t\t{\txtype:'textfield',",
+			"\t\t\tfieldLabel:'標籤',",
+			"\t\t\t//labelStyle:'css樣式',",
+			"\t\t}",
+			"\t],",
+			"},"
+		],
+		"description": "xtype:form:表單面板"
+	},
+	"xtype:treepanel:樹狀面板": {
+		"prefix": "xtype:treepanel:樹狀面板",
+		"body": [
+			"var ${1:名稱}Tree = new Ext.tree.TreePanel({$0",
+			"\tborder:false, autoScroll:true,",
+			"\ttbar:[],",
+			"\t//enableDD:true, rootVisible:false, //允許拖曳, 樹根隱藏",
+			"\t//selModel:new Ext.tree.MultiSelectionModel(), //多選模組",
+			"\tselModel:new Ext.tree.DefaultSelectionModel({",
+			"\t\tlisteners:{",
+			"\t\t\tselectionchange(_this, node) {}, //選擇節點",
+			"\t\t}",
+			"\t}),",
+			"\t//loader:節點讀取器, root:根宣告",
+			"\tloader:new Ext.tree.TreeLoader({",
+			"\t\t// baseAttrs:{checked:false}, //所有節點增加combobox",
+			"\t\tbaseParams:{參數名:參數值},",
+			"\t\tdataUrl:subHandler.subController+'&action=任務&dummy='+new Date().getTime(),",
+			"\t\t// preloadChildren:true, //預先載入子節點(false則是展開時才load)",
+			"\t\tlisteners:{",
+			"\t\t\tload(_this, node, response) {}, //載入完",
+			"\t\t}",
+			"\t}),",
+			"\troot:new Ext.tree.AsyncTreeNode({text:'root', id:'0'}),",
+			"\t// text:'root', id:'0', expanded:true, draggable:false, //名稱, 根ID, 展開節點, 不可拖曳",
+			"\t// icon:subHandler.subFolder+'image/圖片名.png',",
+			"\t// children:[",
+			"\t// \t{text:'A層', children:[",
+			"\t// \t\t{text:'A層-1', checked:true, leaf:true}, //核取框, 葉子",
+			"\t// \t\t{text:'A層-2', leaf:true},",
+			"\t// \t]},",
+			"\t// ]",
+			"\tlisteners:{",
+			"\t\t// click(node, e) {}, //節點點擊, 請改用selModel的selectionchange",
+			"\t\tcontextmenu(node, e) { //節點右鍵",
+			"\t\t\te.preventDefault(); //防止瀏覽器預設右鍵",
+			"\t\t\tnode.select();",
+			"\t\t\tnode.expand();",
+			"\t\t\t${1:名稱}Tree.menu = ${1:名稱}Tree.menu || new Ext.menu.Menu({",
+			"\t\t\t\titems:[",
+			"\t\t\t\t\t{xtype:'menuitem', itemId:'refresh', text:'重整', iconCls:'refresh', handler(btn){",
+			"\t\t\t\t\t\t${1:名稱}Tree.selModel.getSelectedNode().reload();",
+			"\t\t\t\t\t}},",
+			"\t\t\t\t\t{xtype:'menuitem', itemId:'del', text:'刪除', iconCls:'del', handler(btn){",
+			"\t\t\t\t\t\tvar selNode = ${1:名稱}Tree.selModel.getSelectedNode();",
+			"\t\t\t\t\t\t//...",
+			"\t\t\t\t\t}},",
+			"\t\t\t\t],",
+			"\t\t\t});",
+			"\t\t\t${1:名稱}Tree.menu.showAt(e.getXY());",
+			"\t\t},",
+			"\t\texpandnode(node) {}, //節點展開",
+			"\t\tload(node) {}, //節點載入完(與loader的load不一樣)",
+			"\t}",
+			"});"
+		],
+		"description": "xtype:treepanel:樹狀面板"
+	},
+	"xtype:treegrid:樹狀表格": {
+		"prefix": "xtype:treegrid:樹狀表格",
+		"body": [
+			"原始碼->F12->Network->搜treegrid http://retek-06/ext/examples/treegrid/treegrid.html",
+			"var ${1:名稱}Tree = new Ext.ux.tree.TreeGrid({",
+			"\tborder:false,",
+			"\ttbar:[",
+			"\t\t'<img src=\"/images/comm/base/search.gif\"></img>','-',",
+			"\t\t{xtype:'textfield', emptyText:'查詢裝置或備註', width:150, enableKeyEvents:true, listeners:{ specialkey(_this,e) { //導航鍵",
+			"\t\t\tif (e.getKey()===e.ENTER) {",
+			"\t\t\t\t${1:名稱}Tree.loader.baseParams = {keyWord:_this.getValue()};",
+			"\t\t\t\t${1:名稱}Tree.root.reload();",
+			"\t\t\t}",
+			"\t\t}}},",
+			"\t\t'-',",
+			"\t\t{xtype:'button', text:'新增節點', iconCls:'add', handler(btn){getEditNodeWin(true, ${1:名稱}Tree.root).show();}},",
+			"\t\t'-',",
+			"\t\t{xtype:'button', text:'重整', iconCls:'refresh', handler(btn){${1:名稱}Tree.root.reload();}},",
+			"\t],",
+			"\tenableDD:true, enableSort:false,",
+			"\tloader:new Ext.ux.tree.TreeGridLoader({",
+			"\t\tdataUrl:subHandler.subController+'&action=loadTree&dummy='+new Date().getTime(),",
+			"\t}),",
+			"\troot:new Ext.tree.AsyncTreeNode({text:'root', id:'0'}),",
+			"\tcolumns:[",
+			"\t\t{header:'標題', dataIndex:'title', width:200},",
+			"\t\t{header:'備註', dataIndex:'remark', width:200, tpl:new Ext.XTemplate('{欄位名:this.renderer}',{renderer:v=>v+'天'})},",
+			"\t],",
+			"\tlisteners:{",
+			"\t\tcontextmenu(node, e) { //節點右鍵",
+			"\t\t\te.preventDefault(); //防止瀏覽器預設右鍵",
+			"\t\t\tnode.select();",
+			"\t\t\tnode.expand();",
+			"\t\t\t${1:名稱}Tree.menu = ${1:名稱}Tree.menu || new Ext.menu.Menu({",
+			"\t\t\t\tnode:null,",
+			"\t\t\t\titems:[",
+			"\t\t\t\t\t{xtype:'menuitem', text:'重整', iconCls:'refresh', handler(btn){node.reload();}},",
+			"\t\t\t\t\t{xtype:'menuitem', text:'編輯', iconCls:'edit', handler(btn){/*...*/}},",
+			"\t\t\t\t\t{xtype:'menuitem', text:'新增', iconCls:'add', handler(btn){/*...*/}},",
+			"\t\t\t\t\t{xtype:'menuitem', text:'刪除', iconCls:'del', handler(btn){",
+			"\t\t\t\t\t\tExt.Msg.confirm('確認刪除？', '刪除會連子項目一併刪除，確認刪除？', btnId=>{ if (btnId==='yes') {",
+			"\t\t\t\t\t\t\t//...",
+			"\t\t\t\t\t\t}});",
+			"\t\t\t\t\t}},",
+			"\t\t\t\t],",
+			"\t\t\t\tlisteners:{",
+			"\t\t\t\t\tbeforeshow(_this) { //顯示前(禁用|啟用)按鈕",
+			"\t\t\t\t\t\t//...",
+			"\t\t\t\t\t},",
+			"\t\t\t\t}",
+			"\t\t\t});",
+			"\t\t\t${1:名稱}Tree.menu.node = node;",
+			"\t\t\t${1:名稱}Tree.menu.showAt(e.getXY());",
+			"\t\t},",
+			"\t}",
+			"});",
+		],
+		"description": "xtype:treegrid:樹狀表格"
+	},
+	"xtype:highCharts:圖表面板": {
+		"prefix": "xtype:highCharts:圖表面板",
+		"body": [
+			"var chartPanel = new Ext.ux.highCharts({",
+			"\t//==繪圖參數==",
+			"\tchartConfig:{",
+			"\t\t//圖表類型",
+			"\t\tchart:{type:'line'},",
+			"\t\t//移除右下logo",
+			"\t\tcredits:{enabled:false},",
+			"\t\t//標題",
+			"\t\ttitle:{text:'圖表'},",
+			"\t\t//比對項目_參數",
+			"\t\t// legend:{",
+			"\t\t// \tlayout:'horizontal', align:'center', verticalAlign:'bottom', borderWidth:1",
+			"\t\t// },",
+			"\t\t//X軸_參數",
+			"\t\txAxis:{",
+			"\t\t\t// title:{text:'時間'},",
+			"\t\t\tlabels:{rotation:270, align:'right', y:20},",
+			"\t\t\t// lineColor:'#000', tickColor:'#000',",
+			"\t\t\tcategories:['x1', 'x2', 'x3'] //X軸項目",
+			"\t\t},",
+			"\t\t//y軸_參數",
+			"\t\t// yAxis:{ title:{text:'產出量'} },",
+			"\t\t//線_參數",
+			"\t\tseries:[{data: [29.9, 71.5, 106.4]}],",
+			"\t\t//滑鼠移過顯示內容",
+			"\t\ttooltip:{",
+			"\t\t\tcrosshairs:true,",
+			"\t\t\tformatter() {",
+			"\t\t\t\treturn `${this.point.qtip}`;",
+			"\t\t\t}",
+			"\t\t},",
+			"\t\t//預設參數&事件",
+			"\t\t//參考 https://api.highcharts.com/highcharts/plotOptions.series.allowPointSelect",
+			"\t\tplotOptions:{",
+			"\t\t\tseries:{ //線",
+			"\t\t\t\t// allowPointSelect:true, //允許選擇",
+			"\t\t\t\t// cursor:'pointer', marker:{lineWidth:1}, //滑鼠游標",
+			"\t\t\t\t//當繪圖完成",
+			"\t\t\t\t// animation: {",
+			"\t\t\t\t// \tduration: 2000,",
+			"\t\t\t\t// \tcomplete: function(a,b,c){",
+			"\t\t\t\t// \t\talert('Animation complete!');",
+			"\t\t\t\t// \t}",
+			"\t\t\t\t// },",
+			"\t\t\t\tpoint:{ //點",
+			"\t\t\t\t\tevents:{ //事件",
+			"\t\t\t\t\t\tclick(e) { //左鍵",
+			"\t\t\t\t\t\t},",
+			"\t\t\t\t\t\tcontextmenu(e) { //右鍵",
+			"\t\t\t\t\t\t},",
+			"\t\t\t\t\t\tselect(e) { //選取cell",
+			"\t\t\t\t\t\t},",
+			"\t\t\t\t\t\tmouseOver(e) { //移過",
+			"\t\t\t\t\t\t},",
+			"\t\t\t\t\t\tmouseOut(e) { //移出",
+			"\t\t\t\t\t\t},",
+			"\t\t\t\t\t}",
+			"\t\t\t\t},",
+			"\t\t\t}",
+			"\t\t},",
+			"\t},",
+			"\t//==面板參數==",
+			"\ttbar:[],",
+			"\tlisteners:{",
+			"\t\tresize(_this, adjWidth, adjHeight, rawWidth, rawHeight) { //面板調整時也重調整chartSize",
+			"\t\t\tvar bodyHeight = _this.body.dom.clientHeight;",
+			"\t\t\t_this.chart.setSize(adjWidth, bodyHeight, false);",
+			"\t\t},",
+			"\t}",
+			"});",
+		],
+		"description": "xtype:highCharts:圖表面板"
+	},
+	"xtype:highCharts2:圖表面板2": {
+		"prefix": "xtype:highCharts2:圖表面板2",
+		"body": [
+			"//${1:名稱}_繪圖",
+			"var ${1:名稱}Chart = null;",
+			"function draw${1:名稱}Chart(jsonData) {",
+			"\tgetChartWin().show(null, ()=>{",
+			"\t\t${1:名稱}Chart = Highcharts.chart('${1:名稱}Chart', {",
+			"\t\t\t//讀取完resize",
+			"\t\t\tchart:{",
+			"\t\t\t\tevents:{",
+			"\t\t\t\t\tload:function(_this) {",
+			"\t\t\t\t\t\tresizeChart(_this.target);",
+			"\t\t\t\t\t}",
+			"\t\t\t\t}",
+			"\t\t\t},",
+			"\t\t\t//移除右下logo, 標題",
+			"\t\t\tcredits:{enabled:false}, title:{text:'圖表區'},",
+			"\t\t\t//x軸",
+			"\t\t\txAxis:{",
+			"\t\t\t\ttitle:{text:'時間', style:{fontSize:'24px'}},",
+			"\t\t\t\t// labels:{rotation:270, align:'right', y:20},",
+			"\t\t\t\tcategories:['2020-01-01', '2020-01-02', '2020-01-03']",
+			"\t\t\t},",
+			"\t\t\t//y軸",
+			"\t\t\tyAxis: [",
+			"\t\t\t\t{title:{text:'良率', style:{fontSize:'24px', color:'#D83'}},",
+			"\t\t\t\t\tlabels:{format:'{value} %', style:{color:'#851'}},",
+			"\t\t\t\t\tmin:0,",
+			"\t\t\t\t\tplotLines:[ {label:{text:'目標值96%'}, color:'#416FA6', width:2, zIndex:5, value:96} ], //水平線",
+			"\t\t\t\t},",
+			"\t\t\t\t{opposite:true, title:{text:'數量', style:{fontSize:'24px', color:'#A44'}},",
+			"\t\t\t\t\tlabels:{format:'{value} 面', style:{color:'#622'}},",
+			"\t\t\t\t\tmin:0, max:2000*1.2,",
+			"\t\t\t\t},",
+			"\t\t\t],",
+			"\t\t\t//線",
+			"\t\t\tseries:[",
+			"\t\t\t\t{yAxis:0, zIndex:1, type:'spline', name:'良率', color:'#D83',",
+			"\t\t\t\t\tdataLabels:{enabled:true, format:'{y} %'},",
+			"\t\t\t\t\ttooltip:{valueSuffix:'%'},",
+			"\t\t\t\t\tdata:[80,90,98]",
+			"\t\t\t\t},",
+			"\t\t\t\t{yAxis:1, zIndex:0, type:'column', name:'數量', color:'#A44',",
+			"\t\t\t\t\tdataLabels:{enabled:true, verticalAlign:'top'},",
+			"\t\t\t\t\tdata:[1000,2000,1500]",
+			"\t\t\t\t},",
+			"\t\t\t],",
+			"\t\t});",
+			"\t});",
+			"}",
+			"",
+			"//${1:名稱}_圖表視窗",
+			"var chartWin = null;",
+			"function getChartWin() {",
+			"\tchartWin = chartWin || new Ext.Window({",
+			"\t\ticonCls:'chart', title:'圖表', height:500, width:800, border:false,",
+			"\t\tconstrain:true, constrainHeader:true, modal:false, closable:true, closeAction:'hide', maximizable:true,",
+			"\t\tlayout:'fit',",
+			"\t\titems: new Ext.Panel({",
+			"\t\t\thtml:'<div id=\"${1:名稱}Chart\"></div>',",
+			"\t\t\tlisteners:{",
+			"\t\t\t\tresize(_this, adjWidth, adjHeight, rawWidth, rawHeight) { //面板調整時resizeChart",
+			"\t\t\t\t\tresizeChart(${1:名稱}Chart);",
+			"\t\t\t\t},",
+			"\t\t\t}",
+			"\t\t}),",
+			"\t});",
+			"\treturn chartWin;",
+			"}",
+		],
+		"description": "xtype:highCharts2:圖表面板2"
+	},
+	"xtype:[AttrList] 其他可能用到的屬性清單": {
+		"prefix": "xtype:[AttrList]",
+		"body": [
+			"var attrList = {$0",
+			"\titemId:'', //找子項用id",
+			"\tlayout:{type:'vbox', padding:5}, //佈局配置",
+			"\tlayoutConfig:{align:'stretch', pack:'start'}, //佈局配置",
+			"\tbaseCls:'x-plain', //css主題",
+			"\twidth:300, height:300, //寬高",
+			"\tautoWidth:true, autoHeight:true, //自動寬高",
+			"\tborder:false, //邊線",
+			"\tbodyStyle:'padding:10px', //bodystyle",
+			"\tpadding:5, //邊緣填充",
+			"\tmargins:'0 0 5 0', //邊緣填充",
+			"\tdefaults:{margins:'0 0 5 0', width:250}, //items預設屬性",
+			"\tregion:'west', //位置, 父項layout必須是border才有效",
+			"\tflex:1, //比例分配寬或高, 父項layout必須是hbox、vbox才有效",
+			"\tautoExpandColumn:3, //自動調整第幾欄位寬度",
+			"\trenderTo: Ext.getBody(), //渲染在指定div",
+			"\tfloating:true, shadow:true, //浮起 + 陰影",
+			"\tdraggable:true, //可拖拉",
+			"\tcollapsible:true, //可收合",
+			"\tframe:true, //邊框",
+			"\tpageX:100, pageY:100, //x y定位",
+			"\ttbar:[], bbar:[], //上下工具列",
+			"};"
+		],
+		"description": "xtype:[AttrList] 其他可能用到的屬性清單"
+	},
+	// 新增用
+	// "xtype:": {
+	// 	"prefix": "xtype:",
+	// 	"body": [
+	// 		"//var panel = new Ext.~$0",
+	// 		"{xtype:'~', title:'標題',",
+	// 		"},"
+	// 	],
+	// 	"description": "xtype:"
+	// },
+	//xtype UX類________________________________________________________________________________
+	"xtype:": {
+		"prefix": "xtype:winDepMember:成員選擇器",
+		"body": [
+			"//new Ext.ux.winDepMember({});",
+			"{xtype:'winDepMember', singleSelect:false, editable:false,",
+			"\t// onTriggerClick() { //在展開後, 若沒有選擇樹, 讀取自己部門",
+			"\t// \tExt.ux.winDepMember.prototype.onTriggerClick.call(this);",
+			"\t// \tif (!this.TreeSelectFlag) this.gridDs.load({params:{dep:initParams.depSn}});",
+			"\t// },",
+			"\t// listeners:{",
+			"\t// \tblue(_this) {",
+			"\t// \t\tif (!!_this.value) {",
+			"\t// \t\t\teditor_temp = {uName:_this.uName, uSn:_this.value, uId:_this.uIdStr, depTitle:_this.depName, depSn:_this.depSn, staffTitle:_this.staffName};",
+			"\t// \t\t} else {",
+			"\t// \t\t\teditor_temp = null;",
+			"\t// \t\t}",
+			"\t// \t}",
+			"\t// },",
+			"},",
+			"//http://retek-06/modules_mvc/dev/?url=/dev/004424/docs/docs.js",
+		],
+		"description": "xtype:winDepMember:成員選擇器"
+	},
+	//listeners監聽事件________________________________________________________________________________
+	"on:單次事件": {
+		"prefix": "on:單次事件",
+		"body": [
+			"$0Ext元件.on('事件', 該事件參數=>{",
+			"\t",
+			"}, undefined, {delay:0, single:true});",
+		],
+		"description": "對監聽事件增加一次性任務"
+	},
+	// "listeners:事件 (物件)": {
+	// 	"prefix": "listeners:事件 (物件)",
+	// 	"body": [
+	// 		"事件 (_this) { //事件"
+	// 		"\t"
+	// 		"}"
+	// 	],
+	// 	"description": "解釋"
+	// },
+	"listeners:render (Component)": {
+		"prefix": "listeners:render (Component)",
+		"body": [
+			"render(_this) { //渲染時初始化",
+			"\t$0",
+			"},",
+		],
+		"description": "當渲染(rendered)標記為true時執行, 可當初始化使用"
+	},
+	"listeners:afterrender (Component)": {
+		"prefix": "listeners:afterrender (Component)",
+		"body": [
+			"afterrender(_this) { //渲染後初始化",
+			"\t$0",
+			"},",
+		],
+		"description": "當渲染後執行"
+	},
+	"listeners:load (store)": {
+		"prefix": "listeners:load (store)",
+		"body": [
+			"load(_this, records, options) { //讀取後",
+			"\t$0",
+			"},",
+		],
+		"description": "讀取後執行"
+	},
+	"listeners:beforeload (store)": {
+		"prefix": "listeners:beforeload (store)",
+		"body": [
+			"beforeload(_this, options) { //讀取前",
+			"\t$0",
+			"},",
+		],
+		"description": "讀取前檢查"
+	},
+	"listeners:clear (store)": {
+		"prefix": "listeners:clear (store)",
+		"body": [
+			"clear(_this, records) { //清空",
+			"\t$0",
+			"},",
+		],
+		"description": "當store.removeAll()執行後執行"
+	},
+	"listeners:select (combo)": {
+		"prefix": "listeners:select (combo)",
+		"body": [
+			"select(_this, record, index) { //選擇",
+			"\t$0",
+			"},",
+		],
+		"description": "當選擇後執行"
+	},
+	"listeners:cellclick (grid)": {
+		"prefix": "listeners:cellclick (grid)",
+		"body": [
+			"cellclick(_this, rowIndex, columnIndex, e) { //儲存格點擊",
+			"\tvar record = ${1:名稱}Grid.getStore().getAt(rowIndex);  // Get the Record",
+			"\tvar fieldName = ${1:名稱}Grid.getColumnModel().getDataIndex(columnIndex); // Get field name",
+			"\tvar data = record.get(fieldName);",
+			"\t$0",
+			"},",
+		],
+		"description": "儲存格單擊時執行"
+	},
+	"listeners:cellcontextmenu (grid)": {
+		"prefix": "listeners:cellcontextmenu (grid)",
+		"body": [
+			"cellcontextmenu(_this, rowIndex, columnIndex, e) { //儲存格右鍵",
+			"\te.preventDefault(); //防止瀏覽器預設右鍵",
+			"\tvar record = ${1:名稱}Grid.getStore().getAt(rowIndex);  // Get the Record",
+			"\tvar fieldName = ${1:名稱}Grid.getColumnModel().getDataIndex(columnIndex); // Get field name",
+			"\tvar data = record.get(fieldName);",
+			"\t$0",
+			"},",
+		],
+		"description": "儲存格右鍵時執行"
+	},
+	"listeners:rowclick (grid)": {
+		"prefix": "listeners:rowclick (grid)",
+		"body": [
+			"rowclick(_this, rowIndex, e) { //列點擊",
+			"\t$0",
+			"},",
+		],
+		"description": "列單擊時執行"
+	},
+	"listeners:rowcontextmenu (grid)": {
+		"prefix": "listeners:rowcontextmenu (grid)",
+		"body": [
+			"rowcontextmenu(_this, rowIndex, e) { //右鍵menu",
+			"\te.preventDefault(); //防止瀏覽器預設右鍵",
+			"\tvar SM = ${1:名稱}Grid.getSelectionModel();",
+			"\tSM.selectRow(rowIndex); //將點擊的列選取起來(一般右鍵不會將該列選取)",
+			"\tvar selRecord = SM.getSelected(); //取得選擇列的record",
+			"\t$0",
+			"},",
+		],
+		"description": "列右鍵時執行"
+	},
+	"listeners:afteredit (editorgrid)": {
+		"prefix": "listeners:afteredit (editorgrid)",
+		"body": [
+			"afteredit(e) { //編輯後",
+			"\t// e.grid  e.record  e.field  e.value  e.originalValue  e.row  e.column",
+			"\t$0",
+			"},",
+		],
+		"description": "當編輯後執行"
+	},
+	"listeners:blur (field)": {
+		"prefix": "listeners:blur (field)",
+		"body": [
+			"blur(_this) { //失去焦點",
+			"\t$0",
+			"},",
+		],
+		"description": "失去焦點時執行"
+	},
+	"listeners:focus (field)": {
+		"prefix": "listeners:focus (field)",
+		"body": [
+			"focus(_this) { //取得焦點",
+			"\t$0",
+			"},",
+		],
+		"description": "取得焦點時執行"
+	},
+	"listeners:beforetabchange (tabpanel)": {
+		"prefix": "listeners:beforetabchange (tabpanel)",
+		"body": [
+			"beforetabchange(_this, newTab, currentTab) { //切換分頁前",
+			"\t$0",
+			"},",
+		],
+		"description": "切換分頁前執行"
+	},
+	"listeners:tabchange (tabpanel)": {
+		"prefix": "listeners:tabchange (tabpanel)",
+		"body": [
+			"tabchange(_this, tab) { //切換分頁",
+			"\t$0",
+			"},",
+		],
+		"description": "切換分頁時執行"
+	},
+	"listeners:rowselect (RowSelectionModel)": {
+		"prefix": "listeners:rowselect (RowSelectionModel)",
+		"body": [
+			"rowselect(_this, rowIndex, record) { //列選擇",
+			"\t$0",
+			"},",
+		],
+		"description": "列被選擇時執行"
+	},
+	"listeners:rowdeselect (RowSelectionModel)": {
+		"prefix": "listeners:rowdeselect (RowSelectionModel)",
+		"body": [
+			"rowdeselect(_this, rowIndex, record) { //列取消選擇",
+			"\t$0",
+			"},",
+		],
+		"description": "列被取消選擇時執行"
+	},
+	"listeners:cellselect (CellSelectionModel)": {
+		"prefix": "listeners:cellselect (CellSelectionModel)",
+		"body": [
+			"cellselect(_this, rowIndex, colIndex) { //儲存格選擇",
+			"\t$0",
+			"},",
+		],
+		"description": "儲存格被選擇時執行"
+	},
+	"listeners:nodedragover&nodedrop (treepanel)": {
+		"prefix": "listeners:nodedragover&nodedrop (treepanel)",
+		"body": [
+			"nodedragover(e) { //拖曳中",
+			"\t// e.dropNode - 拖曳的節點",
+			"\t// e.dropNode - 拖曳的節點",
+			"\t// e.target - 放開時指向的節點",
+			"\t// e.tree - 此TreePanel",
+			"\t// e.point - 放開時是在目標節點的哪方, 'append'裡面 'above'上方 'below'下方",
+			"\t// e.data - The drag data from the drag source 拖曳資料",
+			"\t// e.source - The drag source 拖曳源",
+			"\t// e.rawEvent - Raw mouse event 原始滑鼠事件",
+			"\t$0",
+			"\treturn true; //是否允許放下",
+			"},",
+			"nodedrop(e) { //拖曳放開",
+			"\t// e.dropNode - 拖曳的節點",
+			"\t// e.target - 放開時指向的節點",
+			"\t// e.tree - 此TreePanel",
+			"\t// e.point - 放開時是在目標節點的哪方, 'append'裡面 'above'上方 'below'下方",
+			"\t// e.data - The drag data from the drag source 拖曳資料",
+			"\t// e.source - The drag source 拖曳源",
+			"\t// e.rawEvent - Raw mouse event 原始滑鼠事件",
+			"},",
+		],
+		"description": "節點拖曳中 & 拖曳放開"
+	},
+	"listeners:expandnode (treepanel)": {
+		"prefix": "listeners:expandnode (treepanel)",
+		"body": [
+			"expandnode (node) { //節點展開",
+			"\tnode.childNodes.forEach(childNode => {",
+			"\t\tif (childNode.leaf) {",
+			"\t\t\t$0",
+			"\t\t}",
+			"\t});",
+			"},",
+		],
+		"description": "節點展開"
+	},
+	"listeners:bodyresize (panel)": {
+		"prefix": "listeners:bodyresize (panel)",
+		"body": [
+			"bodyresize(_this, width, height) { //調整大小",
+			"\t某Panel.setHeight(height/2, false);",
+			"},",
+		],
+		"description": "調整大小"
+	},
+
+	//bar工具列________________________________________________________________________________
+	"tbar:標題工具列": {
+		"prefix": "tbar:標題工具列",
+		"body": [
+			"tbar:new Ext.Toolbar({",
+			"\tcls:'x-panel-header', //標題class",
+			"\tenableOverflow:true, //bar過長會縮起成[>>]按鈕",
+			"\t//style:{borderTop:'none', borderLeft:'none', borderRight:'none'}, //去框線(去除底部請設定上層的top框線)",
+			"\titems:[",
+			"\t\t{xtype:'tbtext', text:'標題', style:'color:#15428b;font:bold 11px tahoma,arial,verdana,sans-serif;'},",
+			"\t]",
+			"}),$0"
+		],
+		"description": "tbar:標題工具列"
+	},
+	"tbar:雙工具列": {
+		"prefix": "tbar:雙工具列",
+		"body": [
+			"tbar:{",
+			"\txtype:'container', layout:'anchor', height:58, defaults:{height:29, anchor:'100%'},",
+			"\titems:[",
+			"\t\tnew Ext.Toolbar({itemId:'bar1', items:[/*...*/]}),",
+			"\t\tnew Ext.Toolbar({itemId:'bar2', items:[/*...*/]}),",
+			"\t]",
+			"},$0"
+		],
+		"description": "tbar:雙工具列"
+	},
+	"bbar:分頁工具列": {
+		"prefix": "bbar:分頁工具列",
+		"body": [
+			"bbar:new Ext.PagingToolbar({ //分頁工具bar",
+			"\tstore:商店, pageSize:initParams.pageSize,",
+			"\tdisplayInfo:true, displayMsg:'顯示 {0} - {1} 筆, 共 {2} 筆', //顯示筆數訊息",
+			"\temptyMsg:'<span style=\"color:red;\">無資料</span>',",
+			"\titems:['->',",
+			"\t\t//{xtype:'button', text:'按鈕', iconCls:'ok', tooltip:'按鈕提示', handler(btn){/*...*/}},",
+			"\t],",
+			"}),$0",
+			"//http://retek-06/ext/docs/#!/api/Ext.PagingToolbar",
+			"//layout:'toolbar', //預設佈局"
+		],
+		"description": "bbar:分頁工具列"
+	},
+	//layout佈局________________________________________________________________________________
+	"layout:fit": {
+		"prefix": "layout:fit",
+		"body": "layout:'fit',$0",
+		"description": "使第一個子項填滿"
+	},
+	"layout:border": {
+		"prefix": "layout:border",
+		"body": [
+			"layout:'border',$0",
+			"items:[{ //子項可用屬性",
+			"\tregion:'center中 west左 south下 east右 north上',",
+			"\t//可調框架, 標題列隱藏, 可收合, 關閉收合動畫效果, 收合模式",
+			"\tsplit:true, header:false, collapsible:true, animCollapse:false, collapseMode:'mini',",
+			"\twidth:100, height:document.body.clientHeight/3, //擇一, 固定寬, 預設瀏覽器1/3高",
+			"\tminSize:75, maxSize:150, //可調框架寬或高的範圍",
+			"\t//標題及收合時icon, 浮動:啟用(啟用的話請開border), 浮動動畫:關, 收合時可見title(要有title, collapseMode不能是'mini')",
+			"\ttitle:'標題', iconCls:'ok', collapsedIconCls:'edit', floatable:true, animFloat:false, plugins:[Ext.ux.panelCollapsedTitle],",
+			"\t//其他",
+			"\tcmargins:'5 5 0 5', //收合時的頂部邊距",
+			"}]"
+		],
+		"description": "使子項排向指定位置\n可使子項框架可調, 但無法依視窗比例調整寬高"
+	},
+	"layout:vbox": {
+		"prefix": "layout:vbox",
+		"body": [
+			"layout:{type:'vbox', align:'stretch'},$0",
+			"// align: 水平對齊 (left, center, stretch水平延展, stretchmax)",
+			"// pack: 項目位置 (start頂部, center中央, end底部)",
+			"// padding: 該框架向內填充",
+			"defaults:{ //子項可用屬性",
+			"\tflex:1, //高度占比",
+			"\tmargins:'5 5 5 5', //子項向外填充(上右下左)",
+			"},",
+			"//{xtype:'spacer', flex:1}, //可在items裡加入這項來調整子項高度比例"
+		],
+		"description": "使子項垂直排列\n可以依視窗比例調整高度"
+	},
+	"layout:hbox": {
+		"prefix": "layout:hbox",
+		"body": [
+			"layout:{type:'hbox', align:'stretch'},$0",
+			"// align: 垂直對齊 (top, center, stretch垂直延展, stretchmax)",
+			"// pack: 項目位置 (start左邊, center中央, end右邊)",
+			"// padding: 該框架向內填充",
+			"defaults:{ //子項可用屬性",
+			"\tflex:1, //寬度占比",
+			"\tmargins:'5 5 5 5', //子項向外填充(上右下左)",
+			"},",
+			"//{xtype:'spacer', flex:1}, //可在items裡加入這項來調整子項寬度比例"
+		],
+		"description": "使子項水平排列\n可以依視窗比例調整寬度"
+	},
+	"layout:card": {
+		"prefix": "layout:card",
+		"body": [
+			"layout:'card', activeItem:0, //初始頁",
+			"items:[$0]",
+			"//http://retek-06/ext/docs/#!/api/Ext.layout.CardLayout",
+			"//切換分頁方法: _this.getLayout().setActiveItem(0);"
+		],
+		"description": "card佈局\n類似tab分頁,但沒有分頁標籤可選,只用程式碼切換"
+	},
+	"layout:form": {
+		"prefix": "layout:form",
+		"body": [
+			"layout:'form', labelAlign:'right', labelWidth:80, //form參數$0",
+			"//hideLabel:true, labelSeparator:':', labelPad:5, //隱藏標籤、標籤最後字元、標籤邊距",
+			"//子項可用屬性",
+			"defaults:{",
+			"\tfieldLabel:'標籤文字', labelStyle:'font-weight:bold;',",
+			"},"
+		],
+		"description": "form佈局\n快速建立表單輸入面板"
+	},
+	//grid屬性物件________________________________________________________________________________
+	"selModel:儲存格選擇模組": {
+		"prefix": "selModel:儲存格選擇模組",
+		"body": [
+			"selModel:new Ext.grid.CellSelectionModel({ //儲存格選擇",
+			"\tsingleSelect:true, //單選",
+			"\tlisteners:{",
+			"\t\tcellselect(_this, rowIndex, colIndex) {",
+			"\t\t\t",
+			"\t\t}",
+			"\t}",
+			"}),$0"
+		],
+		"description": "儲存格選擇模組"
+	},
+	"selModel:列選擇模組": {
+		"prefix": "selModel:列選擇模組",
+		"body": "selModel:new Ext.grid.RowSelectionModel({singleSelect:true}), //列選擇$0",
+		"description": "列選擇模組"
+	},
+	"viewConfig:getRowClass (列顯示設定)": {
+		"prefix": "viewConfig:getRowClass (列顯示設定)",
+		"body": [
+			"getRowClass(record, rowIndex, rowParams, store) { //改變列顏色",
+			"\tif (record.get('某欄')==='符合條件') {",
+			"\t\trowParams.tstyle = rowParams.tstyle.replace(/(width:\\d+px;)/, '\\$1background-color:blanchedalmond;');",
+			"\t} else {",
+			"\t\trowParams.tstyle = rowParams.tstyle.replace(/background\\-color:blanchedalmond;/g, '');",
+			"\t}",
+			"}$0",
+		],
+		"description": "viewConfig:getRowClass (列顯示設定)"
+	},
+	"view:群組view": {
+		"prefix": "view:群組view",
+		"body": [
+			"view:new Ext.grid.GroupingView({",
+			"\tdeferEmptyText:false, emptyText:'無資料', markDirty:false,",
+			"\tgroupTextTpl:'{group} ({[values.rs.length]} {[values.rs.length > 1 ? \"Items\" : \"Item\"]})', //群組顯示文字",
+			"\t//http://retek-06/ext/docs/#!/api/Ext.grid.GroupingView-cfg-groupTextTpl",
+			"\t//groupTextTpl:`{[fnn(this, values)]}` //用這可以檢查tpl程式碼, 要在外宣告fnn=function(tpl, values){debugger}",
+			"\tgetRowClass(record, rowIndex, rowParams, store) { //改變列顏色",
+			"\t\tif (record.get('某欄')==='符合條件') {",
+			"\t\t\trowParams.tstyle += 'background-color:lightgray;';",
+			"\t\t} else {",
+			"\t\t\trowParams.tstyle = rowParams.tstyle.replace(/background-color:lightgray;/g, '');",
+			"\t\t}",
+			"\t}",
+			"}),$0"
+		],
+		"description": "群組view"
+	},
+	//store屬性及方法________________________________________________________________________________
+	"store:newArrayStory": {
+		"prefix": "store:newArrayStory",
+		"body": [
+			"store:new Ext.data.ArrayStore({",
+			"\tfields:[],",
+			"\tdata:[],",
+			"\t//sortInfo:{field:'欄位名', direction:'ASC'}, //DESC",
+			"}),$0"
+		],
+		"description": "陣列Store"
+	},
+	"store:newJsonStory": {
+		"prefix": "store:newJsonStory",
+		"body": [
+			"store:new Ext.data.JsonStore({",
+			"\tfields:[],",
+			"\tdata:[],",
+			"\t//sortInfo:{field:'欄位名', direction:'ASC'}, //DESC",
+			"}),$0"
+		],
+		"description": "JsonStore"
+	},
+	"store:newGroupingStore": {
+		"prefix": "store:newGroupingStore",
+		"body": [
+			"store:new Ext.data.GroupingStore({",
+			"\tgroupField:'群組欄位',",
+			"\treader:new Ext.data.JsonReader({",
+			"\t\tfields:[",
+			"\t\t\t{name:'欄1', type:'string'},",
+			"\t\t]",
+			"\t}),",
+			"\tdata:[{欄1:'data'}],",
+			"\t//sortInfo:{field:'欄位名', direction:'ASC'}, //DESC",
+			"}),$0"
+		],
+		"description": "GroupingStore"
+	},
+	"fields:string": {
+		"prefix": "fields:string",
+		"body": "{name:'${1:欄位}', type:'string'},$0",
+		"description": "新增欄位_字串"
+	},
+	"fields:int": {
+		"prefix": "fields:int",
+		"body": "{name:'${1:欄位}', type:'int'},$0",
+		"description": "新增欄位_整數"
+	},
+	"fields:float": {
+		"prefix": "fields:float",
+		"body": "{name:'${1:欄位}', type:'float'},$0",
+		"description": "新增欄位_浮點數"
+	},
+	"fields:bool": {
+		"prefix": "fields:bool",
+		"body": "{name:'${1:欄位}', type:'bool'},$0",
+		"description": "新增欄位_布林"
+	},
+	"fields:date": {
+		"prefix": "fields:date",
+		"body": "{name:'${1:欄位}', type:'date', format:'Y-m-d H:i:s'},$0",
+		"description": "新增欄位_日期"
+	},
+	"fields:使用者欄位": {
+		"prefix": "fields:使用者欄位",
+		"body": "{name:'uSn',type:'int'},{name:'uName',type:'string'},{name:'setDate',type:'date',format:'Y-m-d H:i:s'},$0",
+		"description": "新增欄位_使用者欄位"
+	},
+	"store.find": {
+		"prefix": "store.find",
+		"body": "var rowIndex = ${1:名稱}Store.find('${2:欄位}', ${3:搜尋值});$0",
+		"description": "store:find 快速尋找\n取得某欄位第一項與值相符的列目錄rowIndex"
+	},
+	"store.findBy": {
+		"prefix": "store.findBy",
+		"body": [
+			"var rowIndex = ${1:名稱}Store.findBy(record=> {",
+			"\treturn record.get('欄位') = 搜尋值;",
+			"});$0"
+		],
+		"description": "store:findBy 進階尋找\n取得第一項回傳true的列目錄rowIndex"
+	},
+	"store.each": {
+		"prefix": "store.each",
+		"body": [
+			"${1:名稱}Store.each(record=> {",
+			"\t",
+			"});$0"
+		],
+		"description": "store:each 迴圈store的record"
+	},
+	"store.load": {
+		"prefix": "store.load",
+		"body": [
+			"${1:名稱}Store.load({callback(records,options,success){",
+			"\tif (success) {",
+			"\t\t",
+			"\t}",
+			"}});$0"
+		],
+		"description": "store:load 讀取後callback"
+	},
+	//columns屬性及方法________________________________________________________________________________
+	"columns:可排序欄位(常用)": {
+		"prefix": "columns:可排序欄位(常用)",
+		"body": "{header:'${1:表頭}', dataIndex:'${2:欄位}', width:80, sortable:true},$0",
+		"description": "columns:可排序欄位(常用)"
+	},
+	"columns:第一欄防空白欄位(常用)": {
+		"prefix": "columns:第一欄防空白欄位(常用)",
+		"body": "{hidden:true, hideable:false},$0",
+		"description": "columns:第一欄防空白欄位(常用)"
+	},
+	"columns:sn欄位(常用, 預設隱藏)": {
+		"prefix": "columns:sn欄位(常用, 預設隱藏)",
+		"body": "{hidden:true, header:'sn', dataIndex:'sn', width:50, sortable:true},$0",
+		"description": "columns:sn欄位(常用, 預設隱藏)"
+	},
+	"columns:人員&時間欄位(常用)": {
+		"prefix": "columns:人員&時間欄位(常用)",
+		"body": [
+			"{hidden:true, header:'編輯人員', dataIndex:'uName', width:70, sortable:true, css:'background-color:#DDD;'},",
+			"{hidden:true, header:'編輯時間', dataIndex:'setDate', width:130, sortable:true, css:'background-color:#DDD;', renderer:v=>Ext.util.Format.date(v, 'Y-m-d H:i:s')},",
+			"$0"
+		],
+		"description": "columns:人員&時間欄位(常用)"
+	},
+	"columns:可編輯欄位(預設藍底)": {
+		"prefix": "columns:可編輯欄位(預設藍底)",
+		"body": "{header:'${1:表頭}', dataIndex:'${2:欄位}', width:30, sortable:true, css:'background-color:#BDE;', editor:new Ext.form.TextField({maxLength:255})},$0",
+		"description": "columns:可編輯欄位(預設藍底)"
+	},
+	"columns:不可編輯欄位(預設灰底、隱藏)": {
+		"prefix": "columns:不可編輯欄位(預設灰底、隱藏)",
+		"body": "{header:'${1:表頭}', dataIndex:'${2:欄位}', width:30, sortable:true, hidden:true, css:'background-color:#DDD;'},$0",
+		"description": "columns:不可編輯欄位(預設灰底、隱藏)"
+	},
+	"columns:禁止調整欄位": {
+		"prefix": "columns:禁止調整欄位",
+		"body": "{header:'${1:表頭}', dataIndex:'${2:欄位}', width:80, fixed:true, resizable:false, hideable:false, menuDisabled:true},$0",
+		"description": "columns:禁止調整欄位(禁調寬度、隱藏、menu、排序)"
+	},
+	"columns:多屬性欄位": {
+		"prefix": "columns:多屬性欄位",
+		"body": [
+			"{header:'${1:表頭}', dataIndex:'${2:欄位}', width:80, sortable:true,",
+			"\tfixed:true, resizable:false, //fixed:完全無法調整, resizable:用戶能不能調整",
+			"\tmenuDisabled:true, hideable:false, hidden:true, hideable:false, tooltip:'提示',",
+			"\talign:'center', css:'text-align:center;font-weight:bold;color:#F55;',",
+			"\tlisteners:{",
+			"\t\tclick(_this, grid, rI, e) {",
+			"\t\t\tif (e.target.constructor.name==='HTMLAnchorElement') { //or HTMLButtonElement",
+			"\t\t\t\t//code...",
+			"\t\t\t}",
+			"\t\t},",
+			"\t},",
+			"},$0",
+			"http://retek-06/ext/docs/#!/api/Ext.grid.Column"
+		],
+		"description": "columns:多屬性欄位"
+	},
+	"renderer columns渲染器": {
+		"prefix": "renderer columns渲染器",
+		"body": [
+			"renderer(value, metaData, record, rowIndex, colIndex, store) {",
+			"\treturn value;",
+			"}$0"
+		],
+		"description": "renderer columns渲染器"
+	},
+	"editor:文字輸入框": {
+		"prefix": "editor:文字輸入框",
+		"body": "editor:new Ext.form.TextField({maxLength:255/*, selectOnFocus:true*/})$0",
+		"description": "editor:文字輸入框"
+	},
+	"editor:文字輸入框_新增用": {
+		"prefix": "editor:文字輸入框_新增用",
+		"body": [
+			"editor:new Ext.form.TextField({",
+			"\tmaxLength:255, enableKeyEvents:true, listeners:{",
+			"\t\trender(_this) { _this.el.set({spellcheck:false}); }, //關閉拼字檢查",
+			"\t\t//離開焦點或按enter時, 如果sn=0 & 沒輸入, 代表存入失敗, 刪除該列",
+			"\t\tblur(_this) {",
+			"\t\t\tvar record = _this.gridEditor.record;",
+			"\t\t\tif(record.get('sn')===0 && _this.getValue()===''){",
+			"\t\t\t\t${1:名稱}Store.remove(record);",
+			"\t\t\t\t(()=>{ ${1:名稱}Grid.stopEditing(); }).defer(1); //關閉編輯",
+			"\t\t\t}",
+			"\t\t},",
+			"\t\tspecialkey(_this,e) { if (e.getKey()===e.ENTER) {",
+			"\t\t\tvar record = _this.gridEditor.record;",
+			"\t\t\tif(record.get('sn')===0 && _this.getValue()===''){",
+			"\t\t\t\t${1:名稱}Store.remove(record);",
+			"\t\t\t\t(()=>{ ${1:名稱}Grid.stopEditing(); }).defer(1); //關閉編輯",
+			"\t\t\t}",
+			"\t\t}}",
+			"\t}",
+			"})$0",
+		],
+		"description": "editor:文字輸入框_新增用"
+	},
+	//Msg________________________________________________________________________________
+	"msg:OK": {
+		"prefix": "msg:OK",
+		"body": "Ext.Msg.alert('Error', 'msg');$0",
+		"description": "MessageBox:OK"
+	},
+	"msg:YESNO": {
+		"prefix": "msg:YESNO",
+		"body": [
+			"Ext.Msg.confirm('title', 'msg', btnId=>{ if (btnId==='yes') {",
+			"\t$0",
+			"}});"
+		],
+		"description": "MessageBox:YESNO"
+	},
+	"msg:show": {
+		"prefix": "msg:show",
+		"body": [
+			"Ext.Msg.show({",
+			"\ttitle:'title', msg:'msg', width:200, icon:Ext.Msg.QUESTION,",
+			"\t//prompt(或multiline):true, value:'預設值', //文字輸入框",
+			"\tbuttons:{ok:'確認', cancel:'取消'},",
+			"\tfn (btnId, text) { if (btnId==='ok') {",
+			"\t}}",
+			"}).getDialog().focusEl.dom.select(); //輸入框全選$0"
+		],
+		"description": "MessageBox:show"
+	},
+	//HTML & CSS & Style________________________________________________________________________________
+	"span:顏色": {
+		"prefix": "span:顏色",
+		"body": "<span style=\"color:${1:顏色};\">${2:文字}</span>$0",
+		"description": "span:顏色"
+	},
+	"span:提示qtip": {
+		"prefix": "span:提示qtip",
+		"body": "<span ext:qwidth=\"auto\" ext:qtip=\"${1:提示字}\">${2:文字}</span>$0",
+		"description": "span:提示qtip"
+	},
+	"span:圓框底色": {
+		"prefix": "span:圓框底色",
+		"body": "<span style=\"background:aliceblue;border-radius:3px;padding:2 3;border:solid 1px;\">${1:文字}</span>$0",
+		"description": "span:圓框底色"
+	},
+	"html 列高調整": {
+		"prefix": "html 列高調整",
+		"body": "<div style=\"margin-bottom:3px;display:block;\">$0儲存格文字cellText</div>",
+		"description": "html:div 列高調整"
+	},
+	"html 文字超連結": {
+		"prefix": "html 文字超連結",
+		"body": "'<a href=\"#\" style=\"text-decoration:none;\" onclick=\"alert(this.value)\">$0文字</a>'",
+		"description": "html:a 文字超連結"
+	},
+	"html 按鈕": {
+		"prefix": "html 按鈕",
+		"body": "'<button style=\"height:20px;\" onclick=\"alert(this.value)\">$0按鈕文字</button>'",
+		"description": "html:button 按鈕"
+	},
+	"html:radio 單選按鈕": {
+		"prefix": "html:radio 單選按鈕",
+		"body": "<input type=\"radio\" name=\"分組名\" value=\"值\" onclick=\"alert(this.value)\" checked>文字$0",
+		"description": "html:radio 單選按鈕"
+	},
+	"html 核取方塊": {
+		"prefix": "html 核取方塊",
+		"body": "<input type=\"checkbox\" value=\"值\" onclick=\"alert(this.value)\" checked>文字$0",
+		"description": "html:checkbox 核取方塊"
+	},
+	"html 輸入框": {
+		"prefix": "html 輸入框",
+		"body": "<input type=\"text\" value=\"預設值\" onchange=\"alert(this.value)\">$0",
+		"description": "html:text 輸入框"
+	},
+	"html 文字方塊": {
+		"prefix": "html 文字方塊",
+		"body": "<textarea rows=\"4\" cols=\"50\">內容</textarea>$0",
+		"description": "html:textarea 文字方塊"
+	},
+	"html 數字輸入框": {
+		"prefix": "html 數字輸入框",
+		"body": "<input type=\"number\" value=\"0\" min=\"0\" max=\"5\" onchange=\"alert(this.value)\">$0",
+		"description": "html:number 數字輸入框"
+	},
+	"html 滑動軸": {
+		"prefix": "html 滑動軸",
+		"body": "<input type=\"range\" min=\"0\" max=\"10\" onchange=\"alert(this.value)\">$0",
+		"description": "html:range 滑動軸"
+	},
+	"html 月選擇器": {
+		"prefix": "html 月選擇器",
+		"body": "<input type=\"month\" value=\"2000-01\" onchange=\"alert(this.value)\">$0",
+		"description": "html:month 月選擇器"
+	},
+	"html 圖片": {
+		"prefix": "html 圖片",
+		"body": "<img src=\"/images/new.gif\">$0",
+		"description": "html:image 圖片"
+	},
+	"html 圖片(長,待刪)": {
+		"prefix": "html 圖片(長,待刪)",
+		"body": "<input type=\"image\" src=\"路徑\" alt=\"替代文字\" title=\"提示\" width=\"48\" height=\"48\">$0",
+		"description": "html:image 圖片(長,待刪)"
+	},
+	"html 下拉選單": {
+		"prefix": "html 下拉選單",
+		"body": [
+			"<select onchange=\"alert(this.value)\">",
+			"\t<option value=\"選項1\">選項1</option>",
+			"\t<option value=\"選項2\" selected>選項2</option>",
+			"\t<option value=\"選項3\">選項3</option>",
+			"\t<option value=\"選項4\">選項4</option>",
+			"</select>$0"
+		],
+		"description": "html:select(combobox) 下拉選單"
+	},
+	"html 表格": {
+		"prefix": "html 表格",
+		"body": [
+			"<table>",
+			"\t<tr>",
+			"\t\t<th>1欄1列粗體</th>",
+			"\t\t<th>2欄1列粗體</th>",
+			"\t\t<th>3欄1列粗體</th>",
+			"\t</tr>",
+			"\t<tr>",
+			"\t\t<td>1欄2列</td>",
+			"\t\t<td>2欄2列</td>",
+			"\t\t<td>3欄2列</td>",
+			"\t</tr>",
+			"</table>$0"
+		],
+		"description": "html:table 表格"
+	},
+	//格式化&轉換________________________________________________________________________________
+	//format:date (日期->string)
+	"format:date (日期->string)": {
+		"prefix": "format:date (日期->string)",
+		"body": "Ext.util.Format.date(${1:日期}, 'Y-m-d H:i:s')$0",
+		"description": "日期->string"
+	},
+	//format:jsonEncode (物件->json字串)
+	"format:jsonEncode (物件->json字串)": {
+		"prefix": "format:jsonEncode (物件->json字串)",
+		"body": "Ext.encode(${1:物件})$0",
+		"description": "物件->json字串"
+	},
+	//format:jsonDecode (json字串->物件)
+	"format:jsonDecode (json字串->物件)": {
+		"prefix": "format:jsonDecode (json字串->物件)",
+		"body": "Ext.decode(${1:json字串})$0",
+		"description": "json字串->物件"
+	},
+	//format:htmlEncode ([& > < \"]->[&amp; &gt; &lt; &quot;])
+	"format:htmlEncode ([& > < \"]->[&amp; &gt; &lt; &quot;])": {
+		"prefix": "format:htmlEncode ([& > < \"]->[&amp; &gt; &lt; &quot;])",
+		"body": "Ext.util.Format.htmlEncode(${1:字串})$0",
+		"description": "[& > < \"]->[&amp; &gt; &lt; &quot;]"
+	},
+	//format:htmlDecode ([&amp; &gt; &lt; &quot;]->[& > < \"])
+	"format:htmlDecode ([&amp; &gt; &lt; &quot;]->[& > < \"])": {
+		"prefix": "format:htmlDecode ([&amp; &gt; &lt; &quot;]->[& > < \"])",
+		"body": "Ext.util.Format.htmlDecode(${1:字串})$0",
+		"description": "[&amp; &gt; &lt; &quot;]->[& > < \"]"
+	},
+	//format:encodeURIComponent (轉網址字串)
+	"format:encodeURIComponent (轉網址字串)": {
+		"prefix": "format:encodeURIComponent (轉網址字串)",
+		"body": "encodeURIComponent(${1:字串})$0",
+		"description": "轉網址字串"
+	},
+	//format:ellipsis (將過長字串最後換成"...")
+	"format:ellipsis (將過長字串最後換成\"...\")": {
+		"prefix": "format:ellipsis (將過長字串最後換成\"...\")",
+		"body": "Ext.util.Format.ellipsis(${1:字串}, 最大長度)$0",
+		"description": "將過長字串最後換成\"...\""
+	},
+	//其他________________________________________________________________________________
+	//menu:表格列右鍵選單事件(多選)
+	"menu:表格列右鍵選單事件(多選)": {
+		"prefix": "menu:表格列右鍵選單事件(多選)",
+		"body": [
+			"// rowclick(_this, rowIndex, e) { //如果沒按ctrl shift, 點擊後只選該列(有開起拖曳功能才需要)$0",
+			"// \tif (e.ctrlKey || e.shiftKey) return;",
+			"// \t_this.getSelectionModel().selectRow(rowIndex);",
+			"// },",
+			"rowcontextmenu(_this, rowIndex, e) { //列右鍵",
+			"\te.preventDefault(); //防止瀏覽器預設右鍵",
+			"\tvar SM = _this.getSelectionModel();",
+			"\tif (SM.getSelections().indexOf(${1:名稱}Store.getAt(rowIndex))<0) SM.selectRow(rowIndex); //若沒選中則只選該列(學windows)",
+			"\t//menu",
+			"\t${1:名稱}Menu = ${1:名稱}Menu || new Ext.menu.Menu({",
+			"\t\titems:[",
+			"\t\t\t{xtype:'label', itemId:'text', text:'已選擇 (X)', style:'padding:3px 27px; display:block;'}, //menutextitem沒有setText方法",
+			"\t\t\t{xtype:'menuitem', itemId:'del', text:'刪除', iconCls:'del', handler(btn){",
+			"\t\t\t\tExt.Msg.confirm('提示', '確認刪除?', btnId=>{ if (btnId==='yes') {",
+			"\t\t\t\t\tvar selRecords = ${1:名稱}Grid.getSelectionModel().getSelections();",
+			"\t\t\t\t\t//AJAX 刪除",
+			"\t\t\t\t}});",
+			"\t\t\t}},",
+			"\t\t],",
+			"\t\tlisteners:{",
+			"\t\t\tbeforeshow(_this) {",
+			"\t\t\t\tvar selRecords = ${1:名稱}Grid.getSelectionModel().getSelections();",
+			"\t\t\t\t_this.get('text').setText('已選擇 (' + selRecords.length + ')');",
+			"\t\t\t},",
+			"\t\t}",
+			"\t});",
+			"\t${1:名稱}Menu.showAt(e.getXY());",
+			"},"
+		],
+		"description": "表格列右鍵選單事件(多選)"
+	},
+	//menu:表格列右鍵選單事件(單選)
+	"menu:表格列右鍵選單事件(單選)": {
+		"prefix": "menu:表格列右鍵選單事件(單選)",
+		"body": [
+			"rowcontextmenu(_this, rowIndex, e) { //列右鍵$0",
+			"\te.preventDefault();",
+			"\tvar SM = ${1:名稱}Grid.getSelectionModel();",
+			"\tSM.selectRow(rowIndex);",
+			"\t//menu",
+			"\t${1:名稱}Menu = ${1:名稱}Menu || new Ext.menu.Menu({",
+			"\t\titems:[",
+			"\t\t\t{xtype:'menuitem', itemId:'view', text:'檢視', iconCls:'isView', handler(btn){",
+			"\t\t\t\tvar selRecord = ${1:名稱}Grid.getSelectionModel().getSelected();",
+			"\t\t\t\t",
+			"\t\t\t}},",
+			"\t\t\t{xtype:'menuitem', itemId:'del', text:'刪除', iconCls:'del', handler(btn){",
+			"\t\t\t\tExt.Msg.confirm('提示', '確認刪除?', btnId=>{ if (btnId==='yes') {",
+			"\t\t\t\t\tvar selRecord = ${1:名稱}Grid.getSelectionModel().getSelected();",
+			"\t\t\t\t\t//AJAX 刪除",
+			"\t\t\t\t}});",
+			"\t\t\t}},",
+			"\t\t],",
+			"\t\tlisteners:{",
+			"\t\t\tbeforeshow(_this) {",
+			"\t\t\t\tvar selRecord = ${1:名稱}Grid.getSelectionModel().getSelected();",
+			"\t\t\t},",
+			"\t\t}",
+			"\t});",
+			"\t${1:名稱}Menu.showAt(e.getXY());",
+			"},"
+		],
+		"description": "表格列右鍵menu(單選)"
+	},
+	//表格拖曳排序事件
+	"grid:拖曳排序事件": {
+		"prefix": "grid:拖曳排序事件",
+		"body": [
+			"ddGroup:'名稱DDGroup', enableDragDrop:true, //排序、拖曳參數",
+			"//畫補助線",
+			"drawDDLine(rowDom) {",
+			"\tthis.clearDDLine();",
+			"\tvar view = this.view;",
+			"\tvar isUp = true;",
+			"\tvar rowIndex = view.findRowIndex(rowDom);",
+			"\tif (rowIndex===false) {",
+			"\t\tvar storeCount = this.store.getCount();",
+			"\t\tif (storeCount) {",
+			"\t\t\trowIndex = storeCount - 1;",
+			"\t\t\tisUp = false;",
+			"\t\t} else {",
+			"\t\t\trowIndex = 0;",
+			"\t\t}",
+			"\t}",
+			"\tthis.DDLineRow = view.getRow(rowIndex);",
+			"\tif (!!this.DDLineRow) {",
+			"\t\tthis.DDLineRow.style[`border-${isUp?'top':'bottom'}`] = '2px blue dashed';",
+			"\t}",
+			"},",
+			"clearDDLine() {",
+			"\tif (!!this.DDLineRow) {",
+			"\t\tthis.DDLineRow.style['border-top'] = '';",
+			"\t\tthis.DDLineRow.style['border-bottom'] = '';",
+			"\t}",
+			"},",
+			"____________________",
+			"//拖曳排序",
+			"afterrender(_this) { //初始化拖曳code",
+			"\t//_this.view.dragZone.lock();",
+			"\tnew Ext.dd.DropTarget(名稱Grid.view.scroller.dom, { //此表",
+			"\t\tddGroup:['名稱DDGroup'], //可移動至的表",
+			"\t\tnotifyDrop(ddSource, e, data) { //其他表項目在此表 放開時",
+			"\t\t\t名稱Grid.clearDDLine(); //清除補助線",
+			"\t\t\tvar view = 名稱Grid.view;",
+			"\t\t\t//排序",
+			"\t\t\tvar selRecords = 名稱Grid.getSelectionModel().getSelections();",
+			"\t\t\tselRecords.sort((r1,r2)=> 名稱Store.indexOf(r1) > 名稱Store.indexOf(r2)); //照rowIndex排序",
+			"\t\t\t//計算應插入的index = 目標rI - (選擇rI小於目標rI的數量)",
+			"\t\t\tvar selRowsIndex = selRecords.map(r=>名稱Store.indexOf(r));",
+			"\t\t\tvar targetRowIndex = view.findRowIndex(e.target);",
+			"\t\t\t名稱Store.remove(selRecords);",
+			"\t\t\tvar insertIndex = targetRowIndex===false? 名稱Store.getCount() :",
+			"\t\t\t\ttargetRowIndex - (selRowsIndex.filter(sI=>sI<targetRowIndex).length);",
+			"\t\t\t名稱Store.insert(insertIndex, selRecords);",
+			"\t\t},",
+			"\t\tnotifyOver(ddSource, e, data) { //其他表項目在此表 移過時",
+			"\t\t\t名稱Grid.drawDDLine(e.target); //畫補助線",
+			"\t\t\treturn this.dropAllowed;",
+			"\t\t},",
+			"\t\tnotifyOut(ddSource, e, data) { //其他表項目在此表 移出時",
+			"\t\t\t名稱Grid.clearDDLine(); //清除補助線",
+			"\t\t},",
+			"\t});",
+			"},",
+		],
+		"description": "grid:拖曳排序事件"
+	},
+	//延遲執行
+	"defer 延遲執行": {
+		"prefix": "defer 延遲執行",
+		"body": [
+			"(()=>{",
+			"\t$0",
+			"}).defer(1000);"
+		],
+		"description": "defer 延遲執行"
+	},
+	//cookie
+	"cookie:清空cookie": {
+		"prefix": "cookie:清空cookie",
+		"body": [
+			"Ext.util.Cookies.set('cookie名稱', null, new Date('January 1, 1970'));",
+			"Ext.util.Cookies.clear('cookie名稱');",
+			"$0"
+		],
+		"description": "cookie:清空cookie"
+	},
+	//公司專用自訂snippet________________________________________________________________________________
+	"ajax:0_Request": {
+		"prefix": "ajax:0_Request",
+		"body": [
+			"Ext.Ajax.request({$0",
+			"\tmethod:'POST', url:subHandler.subController/*.replace('${TM_FILENAME_BASE}', '目標js')*/+'&action=功能&dummy='+new Date().getTime(),",
+			"\tparams:{參數名:參數值},",
+			"\tfailure(response) { Ext.Msg.alert('Error', '無法連線伺服器'); },",
+			"\tsuccess(result, request) {",
+			"\t\tif (result.responseText==='okAdd') {",
+			"\t\t\t// code",
+			"\t\t} else {",
+			"\t\t\tExt.Msg.alert('Error', '[操作名稱]失敗:' + result.responseText);",
+			"\t\t}",
+			"\t},",
+			"});"
+		],
+		"description": "資料庫AJAX動作請求\n可用作儲存或拉取較短的資料"
+	},
+	"ajax:0_Request:多值回傳": {
+		"prefix": "ajax:0_Request:多值回傳",
+		"body": [
+			"Ext.Ajax.request({$0",
+			"\tmethod:'POST', url:subHandler.subController/*.replace('${TM_FILENAME_BASE}', '目標js')*/+'&action=功能&dummy='+new Date().getTime(),",
+			"\tparams:{參數名:參數值},",
+			"\tfailure(response) { Ext.Msg.alert('Error', '無法連線伺服器'); },",
+			"\tsuccess(result, request) {",
+			"\t\tvar resultArr = result.responseText.split(',');",
+			"\t\tvar resultType=resultArr[0], newSn=resultArr[1];",
+			"\t\tif (resultType==='ok') {",
+			"\t\t\t// code",
+			"\t\t} else {",
+			"\t\t\tExt.Msg.alert('Error', '[操作名稱]失敗:' + result.responseText);",
+			"\t\t}",
+			"\t},",
+			"});"
+		],
+		"description": "資料庫AJAX動作請求\n可用作儲存或拉取較短的資料"
+	},
+	"ajax:0_Request:表格新增編輯": {
+		"prefix": "ajax:0_Request:表格新增編輯",
+		"body": [
+			"var record = e.record;$0",
+			"var sn = record.get('sn');",
+			"//AJAX",
+			"Ext.Ajax.request({",
+			"\tmethod:'POST', url:subHandler.subController+'&action=功能&dummy='+new Date().getTime(),",
+			"\tparams:{sn, fieldName:e.field, fieldValue:e.value},",
+			"\tfailure(response) {",
+			"\t\tExt.Msg.alert('Error', '無法連線伺服器');",
+			"\t\trecord.set(e.field, e.originalValue);",
+			"\t},",
+			"\tsuccess(result, request) {",
+			"\t\tif (sn===0) { //新增",
+			"\t\t\t// var [resultType, newSn] = result.responseText.split(',');",
+			"\t\t\tvar resultArr = result.responseText.split(',');",
+			"\t\t\tvar resultType=resultArr[0], newSn=resultArr[1];",
+			"\t\t\tif (resultType==='okAdd') {",
+			"\t\t\t\trecord.set('sn', newSn);",
+			"\t\t\t} else {",
+			"\t\t\t\tExt.Msg.alert('Error', '新增失敗:' + result.responseText);",
+			"\t\t\t\t名稱Store.remove(record);",
+			"\t\t\t}",
+			"\t\t} else { //編輯",
+			"\t\t\tif (result.responseText==='okEdit') {",
+			"\t\t\t\trecord.set('uSn', initParams.uSn);",
+			"\t\t\t\trecord.set('uName', initParams.uName);",
+			"\t\t\t\trecord.set('setDate', new Date());",
+			"\t\t\t} else {",
+			"\t\t\t\tExt.Msg.alert('Error', '編輯失敗:' + result.responseText);",
+			"\t\t\t\trecord.set(e.field, e.originalValue);",
+			"\t\t\t}",
+			"\t\t}",
+			"\t},",
+			"});"
+		],
+		"description": "表格編輯預設ajax"
+	},
+	"ajax:1_loadStore:Json_後端": {
+		"prefix": "ajax:1_loadStore:Json_後端",
+		"body": [
+			"var ${1:名稱}Store = new Ext.data.Store({$0",
+			"\t//storeId:'${1:名稱}Store',",
+			"\tautoLoad:true, remoteSort:true,",
+			"\tbaseParams:{參數名:參數值},",
+			"\tproxy:new Ext.data.HttpProxy({url:subHandler.subController/*.replace('${TM_FILENAME_BASE}', '目標js')*/+'&action=功能&dummy='+new Date().getTime(), method:'POST'}),",
+			"\treader:new Ext.data.JsonReader({",
+			"\t\ttotalProperty:'total', root:'data',",
+			"\t\tfields:[",
+			"\t\t\t//...輸入欄位",
+			"\t\t]",
+			"\t}),",
+			"\tlisteners:{",
+			"\t\tload(_this, records, options) { //讀取完",
+			"\t\t\t//...讀取完後初始化",
+			"\t\t}",
+			"\t},",
+			"});"
+		],
+		"description": "資料庫讀取json表格資料進Store"
+	},
+	"ajax:1_loadStore:Json_前端測試": {
+		"prefix": "ajax:1_loadStore:Json_前端測試",
+		"body": [
+			"var ${1:名稱}Store = new Ext.data.Store({$0",
+			"\t// storeId:'${1:名稱}Store',",
+			"\t// autoLoad:true, remoteSort:true,",
+			"\t// baseParams:{參數名:參數值},",
+			"\t// proxy:new Ext.data.HttpProxy({url:subHandler.subController/*.replace('${TM_FILENAME_BASE}', '目標js')*/+'&action=功能&dummy='+new Date().getTime(), method:'POST'}),",
+			"\treader:new Ext.data.JsonReader({",
+			"\t\t// totalProperty:'total', root:'data',",
+			"\t\tfields:[",
+			"\t\t\t//...輸入欄位",
+			"\t\t]",
+			"\t}),",
+			"});",
+			"${1:名稱}Store.loadData([",
+			"\t//{...},",
+			"]);"
+		],
+		"description": "不用等後端,前端可先用假資料做store"
+	},
+	"ajax:1_loadStore:JsonGroup_前端測試": {
+		"prefix": "ajax:1_loadStore:JsonGroup_前端測試",
+		"body": [
+			"var ${1:名稱}Store = new Ext.data.GroupingStore({$0",
+			"\tgroupField:'群組欄位',",
+			"\t// storeId:'${1:名稱}Store',",
+			"\t// autoLoad:true, remoteSort:true,",
+			"\t// baseParams:{參數名:參數值},",
+			"\t// proxy:new Ext.data.HttpProxy({url:subHandler.subController/*.replace('${TM_FILENAME_BASE}', '目標js')*/+'&action=功能&dummy='+new Date().getTime(), method:'POST'}),",
+			"\treader:new Ext.data.JsonReader({",
+			"\t\t// totalProperty:'total', root:'data',",
+			"\t\tfields:[",
+			"\t\t\t//...輸入欄位",
+			"\t\t]",
+			"\t}),",
+			"});",
+			"${1:名稱}Store.loadData([",
+			"\t//{...},",
+			"]);",
+			"//${1:名稱}Store.groupBy('欄位', true); //groupGrid的刷新方式"
+		],
+		"description": "群組store"
+	},
+	"ajax:2_listeners:loadJs": {
+		"prefix": "ajax:2_listeners:loadJs",
+		"body": [
+			"//此載入會add進 parentId所指的id元件, 若用panel或tabpanel可不用多新增panel來包(除非要title或不要馬上讀), 寫在其外層的render事件",
+			"layout:'fit',",
+			"listeners:{ render(_this) { //載入",
+			"\t//如果載入的js可獨立執行(視為不同專案), 請將mainId移除, 它的mainId即為這裡給的parentId",
+			"\t//如果載入的js不可獨立執行(視為同專案)但會被多次載入, 這裡不用改變, 載入的js裡面宣告id時應使用parentId而非mainId",
+			"\tExt.ux.Loader.load([`\\${subHandler.subFolder}JS名.js?mainId=\\${mainId}&parentId=\\${_this.id}&參數名=\\${參數值}&dummy=\\${new Date().getTime()}`]);",
+			"}}"
+		],
+		"description": "面板載入其他JS"
+	},
+
+	//未分類________________________________________________________________________________
+	// "bbb": {
+	// 	"prefix": "bbb",
+	// 	"body": "OO${1|one,two,three|}XX",
+	// 	"description": "結尾"
+	// },
+	// "aaa": {
+	// 	"prefix": "aaa",
+	// 	"body": "OO${1:another ${2:placeholder}}XX",
+	// 	"description": "結尾"
+	// },
+	// "alert": {
+	// 	"prefix": "alert",
+	// 	"body": "alert('hi');  debugger;",
+	// 	"description": "除錯"
+	// },
+}

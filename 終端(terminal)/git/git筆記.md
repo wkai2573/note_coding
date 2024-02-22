@@ -1,6 +1,10 @@
 
-## 【基本】
+## Link
+
+[下載](https://git-scm.com/download/win)
+
 [Git教學](https://www.runoob.com/git/git-basic-operations.html)
+
 
 ### 建立存放庫初始化
 ```properties
