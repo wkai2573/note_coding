@@ -7,25 +7,25 @@
 
 
 ### 建立存放庫初始化
-```properties
+```shell
 git init
 git init 路徑檔案
 ```
 
 ### 暫存變更_add
-```properties
+```shell
 git add .         # 暫存全部
 git add 路徑檔案
 ```
 
 ### 取消暫存變更_reset
-```properties
+```shell
 git reset .       # 取消暫存全部
 git reset 路徑檔案
 ```
 
 ### 提交_commit
-```properties
+```shell
 git commit -m "填寫版本資訊"
 git commit
 ```
@@ -48,7 +48,7 @@ __________________________________________________
 
 ### 推_push
 ![vscode_push](img/vscode_push.jpg "vscode_push")
-```properties
+```shell
 git push 遠端主機名 本地分支名:遠端分支名
 git push origin master
 git push origin master:main  #如果分支名不一樣
@@ -56,7 +56,7 @@ git push origin master:main  #如果分支名不一樣
 
 ### 拉_pull
 ![vscode_pull](img/vscode_pull.jpg "vscode_pull")
-```properties
+```shell
 git pull 遠端主機名 遠端分支名:本地分支名
 git pull origin master:dev
 git pull origin master
@@ -66,13 +66,13 @@ __________________________________________________
 ## 【分支】
 
 ### 建立分支_branch
-```properties
+```shell
 git branch 分支名     # 建立分支
 git branch -d 分支名  # 刪除分支
 ```
 
 ### 切換分支_checkout
-```properties
+```shell
 git checkout 分支名
 ```
 
@@ -81,7 +81,7 @@ git checkout 分支名
 
 ![vscode_合併分支](img/vscode_merge.jpg "vscode_合併分支")
 
-```properties
+```shell
 # 目前分支A 合併 分支B (將B的更新 給A)
 git checkout 分支A
 git merge 分支B
@@ -94,7 +94,7 @@ git merge dev
 
 須強制合併，使用以下命令
 
-```properties
+```shell
 git merge 分支B --allow-unrelated-histories
 # or
 git merge dev --allow-unrelated-histories
@@ -112,7 +112,7 @@ __________________________________________________
 
 ### 回復版本
 ![vscode_回復版本](img/vscode_reset_head.jpg "vscode_回復版本")
-```properties
+```shell
 git reset --hard HEAD    # 回復到最新提交版本
 git reset --hard HEAD~   # 等於 ~1 回復到上一個提交版本
 git reset --hard HEAD~n  # n 等於往上第幾個提交版本 回復之前指定的提交版本
@@ -120,7 +120,7 @@ git reset --hard HEAD~n  # n 等於往上第幾個提交版本 回復之前指�
 
 ### 合併(merge)時忽略指定檔案
 [參考](https://stackoverflow.com/questions/14369378/how-to-make-git-ignore-a-directory-while-merging)
-```properties
+```shell
 git checkout master    
 git merge --no-commit --no-ff development
 git reset -- /path/to/folder # revert updates from path
