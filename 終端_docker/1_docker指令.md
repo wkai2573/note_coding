@@ -19,4 +19,7 @@ docker container ls
 # 重新命名
 docker rename oldContainerName newContainerName
 
+# 進入容器命令列
+docker exec containerID /bin/bash
+
 ```
