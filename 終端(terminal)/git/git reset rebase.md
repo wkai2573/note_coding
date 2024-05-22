@@ -15,4 +15,7 @@ git reset 26630dffd7d976a0a8b69673cf76550c0a22370d
 git rebase [<branch>]
 git rebase main
 
+git rebase --abort # rebase中途 取消rebase
+git rebase --continue # rebase中途 繼續rebase
+
 ```
