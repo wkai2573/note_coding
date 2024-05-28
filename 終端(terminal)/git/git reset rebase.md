@@ -1,5 +1,3 @@
-
-
 ```shell
 
 
@@ -25,5 +23,15 @@ git rebase --abort # rebase中途 取消rebase
 git rebase --continue # rebase中途 繼續rebase
 
 
-
 ```
+
+# 情形1: B分支 rebase A 但遇到多個commit需修改
+可使用 rebase --interactive 來個別調整各commit處理
+### 1. 選擇要rebase的分支
+![rebase_1](img/vscode_rebase_1.jpg)
+### 2. 選擇 rebase --interactive
+![rebase_2](img/vscode_rebase_2.jpg)
+### 3. 調整各commit處理 [參考](https://www.gss.com.tw/blog/%E4%BD%BF%E7%94%A8-git-rebase-interactive-%E6%A8%A1%E5%BC%8F%E6%95%B4%E7%90%86-commit)
+![rebase_3](img/vscode_rebase_3.jpg)
+### 4. 處理rebasing合併
+![rebase_4](img/vscode_rebase_4.jpg)
