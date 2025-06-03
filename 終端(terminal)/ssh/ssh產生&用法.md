@@ -1,6 +1,6 @@
 ```shell
 # 輸入以下指令，然後 enter 到底
-ssh-keygen -C "wkai2573@gmail"
+ssh-keygen -t rsa -C "wkai2573@gmail"
 
 # PS C:\> ssh-keygen
 # Generating public/private rsa key pair.
