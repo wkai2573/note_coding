@@ -8,76 +8,114 @@
 
 
 ### 建立存放庫初始化
+![vscode_init](img/vscode_init.jpg)
 ```shell
 git init
-git init 路徑檔案
 ```
 
 ### 暫存變更_add
+![vscode_add](img/vscode_add.jpg)
 ```shell
 git add .         # 暫存全部
 git add 路徑檔案
 ```
 
 ### 取消暫存變更_reset
+![vscode_reset](img/vscode_reset.jpg)
 ```shell
 git reset .       # 取消暫存全部
 git reset 路徑檔案
 ```
 
 ### 提交_commit
+![vscode_commit](img/vscode_commit.jpg)
 ```shell
 git commit -m "填寫版本資訊"
-git commit
+```
+
+### 反悔提交_Undo commit
+![vscode_undo_commit](img/vscode_undo_commit.jpg)
+
+
+### 擱置變更
+![vscode_stash_1-1](img/vscode_stash_1-1.jpg)
+![vscode_stash_1-2](img/vscode_stash_1-2.jpg)
+```shell
+git stash      # 擱置當前的修改
+git checkout A # 切換分支A
+git stash pop  # 恢復擱置修改 並刪除該擱置 (pop最新的擱置)
 ```
 
 __________________________________________________
+
 ## 【遠端連接】
 [參考這裡](https://www.runoob.com/git/git-remote.html)
 
 ### 新增遠端存儲庫_remote
 ![vscode_remote](img/vscode_remote.jpg "vscode_remote")
-
-### 新case直接上傳到GitHub，自動新建存儲庫_publish
-![vscode_publish](img/vscode_publish.jpg "vscode_publish")
+```shell
+git remote add <name> <url>   # 新增
+git remote remove <name>      # 移除
+git remote rename <old> <new> # 重命名
+```
 
 __________________________________________________
+
 ## 【遠端同步】
 
-### 複製_clone
+### clone_複製遠端專案到本地
 ![vscode_clone](img/vscode_clone.jpg "vscode_clone")
-
-### 推_push
-![vscode_push](img/vscode_push.jpg "vscode_push")
 ```shell
-git push 遠端主機名 本地分支名:遠端分支名
-git push origin master
-git push origin master:main  #如果分支名不一樣
+git clone <repository-url>
 ```
 
-### 拉_pull
+### push_推
+![vscode_push](img/vscode_push.jpg "vscode_push")
+```shell
+git push                   # 預設push
+git push -f                # 強制push
+git push <remote> <branch> # 指定push
+```
+
+### fetch_抓取(僅下載) & pull_拉(下載並合併)
 ![vscode_pull](img/vscode_pull.jpg "vscode_pull")
 ```shell
-git pull 遠端主機名 遠端分支名:本地分支名
-git pull origin master:dev
-git pull origin master
+git fetch origin
+git pull <remote> <branch>
+git pull origin main
 ```
 
 __________________________________________________
+
 ## 【分支】
 
-### 建立分支_branch
+### branch_建立分支
+![vscode_branch](img/vscode_branch.jpg)
 ```shell
 git branch 分支名     # 建立分支
 git branch -d 分支名  # 刪除分支
 ```
 
-### 切換分支_checkout
+### checkout_切換分支
+![vscode_checkout_1](img/vscode_checkout_1.jpg)
+![vscode_checkout_2](img/vscode_checkout_2.jpg)
 ```shell
 git checkout 分支名
 ```
 
-### 合併分支_merge
+### rebase_合併分支
+![vscode_rebase_1-1](img/vscode_rebase_1-1.jpg)
+![vscode_rebase_1-2](img/vscode_rebase_1-2.jpg)
+```shell
+# 目前分支B 合併 分支A (將分支B與分支A的分支處之中的提交 移到分支A開始)
+git checkout 分支B
+git rebase 分支A
+# or
+git checkout dev
+git rebase main
+```
+
+### merge_合併分支
 [其他合併方式參考](https://stackoverflow.com/questions/9069061/what-effect-does-the-no-ff-flag-have-for-git-merge)
 
 ![vscode_合併分支](img/vscode_merge.jpg "vscode_合併分支")
@@ -87,7 +125,7 @@ git checkout 分支名
 git checkout 分支A
 git merge 分支B
 # or
-git checkout master
+git checkout main
 git merge dev
 ```
 
@@ -108,27 +146,6 @@ git merge dev --allow-unrelated-histories
 手動處理好後，按"+"暫存變更，
 
 都處理好後，"提交(commit)"才會亮起來給你按。
+
 __________________________________________________
-## 【特殊處理】
 
-### 回復版本
-![vscode_回復版本](img/vscode_reset_head.jpg "vscode_回復版本")
-```shell
-git reset --hard HEAD    # 回復到最新提交版本
-git reset --hard HEAD~   # 等於 ~1 回復到上一個提交版本
-git reset --hard HEAD~n  # n 等於往上第幾個提交版本 回復之前指定的提交版本
-```
-
-### 合併(merge)時忽略指定檔案
-[參考](https://stackoverflow.com/questions/14369378/how-to-make-git-ignore-a-directory-while-merging)
-```shell
-git checkout master    
-git merge --no-commit --no-ff development
-git reset -- /path/to/folder # revert updates from path
-git commit
-
-簡易說明:
-1. 先 main 合併(merge) dev
-2. 捨棄(reset) 不要合併的檔案
-3. commit
-```
