@@ -21,8 +21,8 @@ git stash pop
 
 ## 使用vscode :
 ### 1. stash修改
-![stash_1](img/vscode_stash_1.jpg)
+![stash_2-1](img/vscode_stash_2-1.jpg)
 ### 2. checkout分支
-![stash_2](img/vscode_stash_2.jpg)
+![stash_2-2](img/vscode_stash_2-2.jpg)
 ### 3. pop最新的擱置
-![stash_3](img/vscode_stash_3.jpg)
+![stash_2-3](img/vscode_stash_2-3.jpg)
