@@ -4,7 +4,7 @@
 
 [Git教學](https://www.runoob.com/git/git-basic-operations.html)
 
-建議用 scoop 安裝，參考[Scoop](../scoop(win包管理)/新機初始安裝.md)
+建議用 scoop 安裝，參考[Scoop](../scoop(win包管理)/安裝.md)
 
 ### Git初始設定
 
