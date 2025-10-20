@@ -21,3 +21,11 @@ git commit
 2. 捨棄(reset) 不要合併的檔案
 3. commit
 ```
+
+### 將舊commit的作者和email改掉
+
+```shell
+pip install git-filter-repo
+
+git filter-repo --email-callback 'return b"wkai2573@gmail.com"' --name-callback 'return b"kai"'
+```

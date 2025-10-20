@@ -6,6 +6,14 @@
 
 建議用 scoop 安裝，參考[Scoop](../scoop(win包管理)/新機初始安裝.md)
 
+### Git初始設定
+
+```shell
+git config --global user.name "你的名字"
+git config --global user.email "你的email@example.com"
+git config --show-origin --list # 查看git全部設定(file來源可能有3種:代表系統、全域、專案)
+```
+
 
 ### 建立存放庫初始化
 ![vscode_init](img/vscode_init.jpg)
