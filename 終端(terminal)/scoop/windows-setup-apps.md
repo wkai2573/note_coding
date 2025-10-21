@@ -25,6 +25,7 @@
 | gcc | `scoop install main/gcc` | GNU 編譯器套裝 |
 | ffmpeg | `scoop install main/ffmpeg` | 影音轉檔與處理工具 |
 | imagemagick | `scoop install main/imagemagick` | 圖像處理工具 |
+| fvm | `scoop install extras/fvm` | Flutter SDK 版本管理 |
 
 ---
 

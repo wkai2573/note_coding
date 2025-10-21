@@ -1,11 +1,11 @@
-# 安裝參考
-
-[Github](https://github.com/pyenv-win/pyenv-win#installation)
+# 安裝
 
 建議用 scoop 安裝，參考[Scoop](../scoop(win包管理)/新機初始安裝.md)
 
+[Github](https://github.com/pyenv-win/pyenv-win#installation)
 
 # 指令
+
 ```shell
 # 查看指令
 pyenv
