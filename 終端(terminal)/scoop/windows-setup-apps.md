@@ -37,7 +37,6 @@
 | Windows Terminal | `scoop install extras/windows-terminal` | 現代終端機（建議同時安裝 `extras/vcredist2022`） |
 | PowerToys | `scoop install extras/powertoys` | 微軟官方強化工具集（安裝後會提示右鍵整合指令） |
 | Everything | `scoop install extras/everything` | 全域檔案搜尋工具（安裝後在 `%USERPROFILE%\scoop\apps\everything\current` 執行`.reg`檔：加入右鍵 |
-| VSCode | `scoop install extras/vscode` | 開發編輯器（安裝後在 `%USERPROFILE%\scoop\apps\vscode\current` 執行`.reg`檔：加入右鍵、副檔名關聯、GitHub Desktop識別 |
 | Snipaste | `scoop install extras/snipaste` | 螢幕截圖與貼圖工具 |
 | Bandizip | `scoop install extras/bandizip` | 壓縮解壓縮工具（7.0 以上版本含廣告） |
 | PotPlayer | `scoop install extras/potplayer` | 高效能影音播放軟體 |
@@ -56,6 +55,7 @@
 
 | 應用 | 來源 | 說明 |
 |------|------|------|
+| VSCode | WinGet | 開發編輯器，官網下載正常安裝，開始列右鍵才會列出最近開啟檔案 |
 | Google Chrome (EXE) | WinGet 或 `scoop install extras/googlechrome` | 瀏覽器 |
 | PowerShell | WinGet | 命令列介面與自動化工具(這個是跨平臺的，與 Windows PowerShell 不同) |
 | Windhawk | WinGet | Windows 功能模組平台（自訂系統行為） |
