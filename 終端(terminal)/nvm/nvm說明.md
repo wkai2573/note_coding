@@ -1,3 +1,5 @@
+!!! 請改用bun
+
 # 安裝
 
 建議用 scoop 安裝，參考[Scoop](../scoop(win包管理)/新機初始安裝.md)

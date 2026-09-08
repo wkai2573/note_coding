@@ -10,7 +10,7 @@
 | 工具 | 來源 | 說明 |
 |------|------|------|
 | git | `scoop install main/git` | 版本控制工具 |
-| nvm | `scoop install main/nvm` | Node.js 版本管理 |
+| nvm | `scoop install main/nvm` | Node.js 版本管理(未來專案改用bun) |
 | pyenv | `scoop install main/pyenv` | Python 版本管理 |
 | scoop-search | `scoop install main/scoop-search` | 搜尋 Scoop bucket 套件 |
 

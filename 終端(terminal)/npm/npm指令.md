@@ -1,6 +1,7 @@
 ```shell
 
 # !!! 請改用pnpm
+# !!!(最新) 請改用bun
 
 npm init
 
